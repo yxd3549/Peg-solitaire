@@ -7,7 +7,7 @@ package Model;
 public class Model {
 
     /* A 2D array to represent the board of the game. Only 15 of the indexes will actually contain an instance of a Peg or Hole*/
-    private Tile[][] board;
+    private Tile[] board;
 
     /**
      * Public constructor for the Model
@@ -15,6 +15,11 @@ public class Model {
      */
     public Model(){
 
+    }
+
+    @Override
+    public String toString(){
+        return "";
     }
 
     /**
