@@ -55,6 +55,7 @@ public class Node {
         this.adjNodes[index] = newNode;
     }
 
+    public void setAdjacentNodes(Node [] newNodes){this.adjNodes = newNodes;}
     public Node getAdjNode(int index) {
         return this.adjNodes[index];
     }
