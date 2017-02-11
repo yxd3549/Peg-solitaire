@@ -34,9 +34,6 @@ public class Node {
         this.hasPeg = isFilled;
     }
 
-    public Node(Node[]){
-
-    }
     /**
      * toString() method override
      * @return Character based on what is contained in the node
