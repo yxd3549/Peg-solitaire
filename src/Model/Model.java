@@ -143,7 +143,7 @@ public class Model {
     }
 
 
-    int[] getBounds(int row){
+    public int[] getBounds(int row){
         int [] result = new int[2];
         result[0] = (row)*(row+1)/2;
         result[1] = (row)*(row+3)/2;

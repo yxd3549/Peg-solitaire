@@ -1,7 +1,18 @@
 package PTUI;
 
+import Model.Model;
+
 /**
- * Created by DSYancarlos on 2/7/2017.
+ *
  */
 public class PegSolitairePTUI {
+
+    private Model model;
+
+    public PegSolitairePTUI(){
+        this.model =
+    }
+    public static void main(String[] args){
+        model
+    }
 }
