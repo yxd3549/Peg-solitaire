@@ -100,11 +100,11 @@ public class Model {
 
     @Override
     public String toString(){
-        String s = "     " + board[0].toString()
+        String s = "    " + board[0].toString()
                 + "\n   " + board[1].toString() + " " + board[2].toString()
                 + "\n  " + board[3].toString() + " " + board[4].toString() + " " + board[5].toString()
                 + "\n " + board[6].toString() + " " + board[7].toString() + " " + board[8].toString() + " " + board[9].toString()
-                + "\n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString();
+                + "\n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString() + "\n";
         return s;
     }
 
