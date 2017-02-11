@@ -19,7 +19,7 @@ public class Model {
     public Model(){
         this.board = new Node[15];
         for (int i = 0; i < 15; i++){
-            this.board[i] = new Node(true);
+            this.board[i] = new Node(true, i);
         }
         // Peg 0
         board[0].setAdjacentNode(2, board[2]);
@@ -101,10 +101,10 @@ public class Model {
     @Override
     public String toString(){
         String s = "     " + board[0].toString()
-                + "/n   " + board[1].toString() + " " + board[2].toString()
-                + "/n  " + board[3].toString() + " " + board[4].toString() + " " + board[5].toString()
-                + "/n " + board[6].toString() + " " + board[7].toString() + " " + board[8].toString() + " " + board[9].toString()
-                + "/n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString();
+                + "\n   " + board[1].toString() + " " + board[2].toString()
+                + "\n  " + board[3].toString() + " " + board[4].toString() + " " + board[5].toString()
+                + "\n " + board[6].toString() + " " + board[7].toString() + " " + board[8].toString() + " " + board[9].toString()
+                + "\n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString();
         return s;
     }
 
@@ -127,23 +127,19 @@ public class Model {
     }
 
     /**
-     * Move takes an x and y coordinate and attempts to move the selectedPiece to those coordinates
      *
-     * If it succeeds, the place where the selectedPiece was will become a Hole as well
-     * as the piece that was in between the selectedPiece and the target.
-     * Nothing needs to be done to the target.
-     *
-     * If it fails to do so, the selectedPiece variable will not change
-     * The exception to this is the case where the coordinates point to where the selectedPiece is
-     * In such case, the piece will be unselected and the variable will become null
-     * @param x The horizontal position of the Tile to target
-     * @param y The vertical position of the Tile to target
-     * @return If the Peg moves, this method will return true
-     *         If the Peg does not move, this method will return false
-     *         IF the Peg is unselected, this method will return false
      */
-    public boolean move(int x, int y){
-        return false;
+    public boolean move(int id){
+        int middleMan = selected.canMove(id);
+        if(middleMan == -1){
+            return false;
+        }
+        else{
+            board[selected.getIndex()].makeHole();
+            board[middleMan].makeHole();
+            board[id].makePeg();
+            return true;
+        }
     }
 
 

@@ -8,7 +8,10 @@ package Model;
  * @author Michelle Zhou
  */
 public class Node {
-
+    /**
+     * An index of where the Node is in the board array.
+     */
+    private int index;
     /**
      * A list of adjacent Nodes
      */
@@ -29,14 +32,12 @@ public class Node {
      * Public Constructor
      * @param isFilled: if there is a peg here when initialized
      */
-    public Node(boolean isFilled) {
+    public Node(boolean isFilled, int index) {
         adjNodes = new Node[6];
         this.hasPeg = isFilled;
+        this.index = index;
     }
 
-    public Node(Node[]){
-
-    }
     /**
      * toString() method override
      * @return Character based on what is contained in the node
@@ -54,6 +55,10 @@ public class Node {
         return this.hasPeg;
     }
 
+    public int getIndex(){
+        return this.index;
+    }
+
     public void setAdjacentNode(int index, Node newNode) {
         this.adjNodes[index] = newNode;
     }
@@ -62,5 +67,33 @@ public class Node {
 
     public Node getAdjNode(int index) {
         return this.adjNodes[index];
+    }
+
+    public int canMove(int index) {
+        if (!hasPeg){
+            return -1;
+        }
+        for ( int i = 0; i < 6; i++){
+            if(this.adjNodes[i] == null){
+                break;
+            }
+            else if(adjNodes[i].isPeg()){
+                if(!adjNodes[i].adjNodes[i].isPeg()){
+                    return adjNodes[i].index;
+                }
+            }
+            else{
+                break;
+            }
+        }
+        return -1;
+    }
+
+    public void makeHole(){
+        this.hasPeg = false;
+    }
+
+    public void makePeg(){
+        this.hasPeg = true;
     }
 }
