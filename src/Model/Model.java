@@ -143,11 +143,15 @@ public class Model {
     }
 
 
-    int[] getBounds(int row){
+    public int[] getBounds(int row){
         int [] result = new int[2];
         result[0] = (row)*(row+1)/2;
         result[1] = (row)*(row+3)/2;
         return result;
+    }
+
+    public int getRow(int index){
+        return (int)(0.5*Math.sqrt(1.0+8.0*index)-0.5);
     }
 
     public int[] getAdjInds(int index){
