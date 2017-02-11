@@ -14,6 +14,9 @@ public class Node {
     /** Boolean telling whether a Node has a Peg or not*/
     private boolean hasPeg;
 
+    /**
+     * Public contro
+     */
     public Node(){
         hasPeg = false;
 
@@ -26,6 +29,12 @@ public class Node {
     public Node(Node [] adjacentNode){
     }
 
+    @Override
+    public String toString(){
+        String s = "";
+        if
+    }
+}
     public boolean isPeg(){
         return this.hasPeg;
     }
