@@ -6,7 +6,7 @@ package Model;
  */
 public class Model {
 
-    /** An array to represent the board of the game. */
+    /** An rray to represent the board of the game. */
     private Node[] board;
     /** The currently selected peg */
     private Node selected;
@@ -109,38 +109,29 @@ public class Model {
     }
 
     /**
-     * Select takes an x and y coordinate in order to find the desired peg
-     * The return value of this function can be used to tell the player whether a Peg has been successfully selected or not
-     * This function will also change the private variable "selectedPiece" to an instance of a Peg if one is found
-     * In the case of a failure, the value of "selectedPiece" will remain untouched
-     * @param x The horizontal position of the Tile to access
-     * @param y The vertical position of the Tile to access
-     * @return If the is a peg at that position, this method will return true
-     *         If there is a Hole at that position, this method will return false
-     *         If there is a null in that position, this method will return false (Should not happen)
+     *
      */
     public boolean select(int id){
-
+        Node node = board[id];
+        if (id > 15){
+            return false;
+        }
+        else if(!node.isPeg()){
+            return false;
+        }
+        else if(node.isPeg()){
+            this.selected = node;
+            return true;
+        }
+        return false; // Should not be reached
     }
 
     /**
-     * Move takes an x and y coordinate and attempts to move the selectedPiece to those coordinates
      *
-     * If it succeeds, the place where the selectedPiece was will become a Hole as well
-     * as the piece that was in between the selectedPiece and the target.
-     * Nothing needs to be done to the target.
-     *
-     * If it fails to do so, the selectedPiece variable will not change
-     * The exception to this is the case where the coordinates point to where the selectedPiece is
-     * In such case, the piece will be unselected and the variable will become null
-     * @param x The horizontal position of the Tile to target
-     * @param y The vertical position of the Tile to target
-     * @return If the Peg moves, this method will return true
-     *         If the Peg does not move, this method will return false
-     *         IF the Peg is unselected, this method will return false
      */
-    public boolean move(int x, int y){
+    public boolean move(int id){
+        if(selected.canMove(id)){
 
-        return false;
+        }
     }
 }
