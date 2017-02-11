@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Peg-solitaires.iml" filepath="$PROJECT_DIR$/.idea/Peg-solitaires.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Peg-solitaire.iml" filepath="$PROJECT_DIR$/Peg-solitaire.iml" />
     </modules>
   </component>
 </project>
