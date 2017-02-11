@@ -45,9 +45,9 @@ public class Node {
     @Override
     public String toString() {
         if (this.hasPeg) {
-            return "x";
+            return "X";
         } else {
-            return "o";
+            return "O";
         }
     }
 
