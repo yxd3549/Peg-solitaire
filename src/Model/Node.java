@@ -64,9 +64,12 @@ public class Node {
         return this.adjNodes[index];
     }
 
-    public boolean canMove(int index) {
+    public int canMove(int index) {
+        if (!hasPeg){
+            return -1;
+        }
 
 
-        return true;
+        return ;
     }
 }
