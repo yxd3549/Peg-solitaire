@@ -9,40 +9,64 @@ package Model;
  */
 public class Node {
 
-    /** A list of adjacent Nodes */
-    private Node [] adjNodes;
-    /** Boolean telling whether a Node has a Peg or not*/
+    /**
+     * A list of adjacent Nodes
+     */
+    private Node[] adjNodes;
+    /**
+     * Boolean telling whether a Node has a Peg or not
+     */
     private boolean hasPeg;
 
     /**
-     * Public contro
+     * Public Constructor
      */
-    public Node(){
-        hasPeg = false;
-
-    }
-    public Node(int isFilled){
-
-    }
-    public Node(int isFilled, Node [] adjacentNodes){
-    }
-    public Node(Node [] adjacentNode){
+    public Node() {
+        this.hasPeg = false;
     }
 
+    /**
+     * Public Constructor
+     * @param isFilled: if there is a peg here when initialized
+     */
+    public Node(boolean isFilled) {
+        adjNodes = new Node[6];
+        this.hasPeg = isFilled;
+    }
+
+    public Node(Node[]){
+
+    }
+    /**
+     * toString() method override
+     * @return Character based on what is contained in the node
+     */
     @Override
-    public String toString(){
-        String s = "";
-        if
+    public String toString() {
+        if (this.hasPeg) {
+            return "x";
+        } else {
+            return "o";
+        }
     }
-}
-    public boolean isPeg(){
+
+    public boolean isPeg() {
         return this.hasPeg;
     }
 
-    public void setAdjacentNode(int index, Node newNode){
+    public void setAdjacentNode(int index, Node newNode) {
         this.adjNodes[index] = newNode;
     }
 
-    public void getAdjNode(int index){
+    public void setAdjacentNodes(Node[] newNodes){this.adjNodes = newNodes;}
+
+    public Node getAdjNode(int index) {
         return this.adjNodes[index];
     }
+
+    public boolean canMove(int index) {
+
+
+        return true;
+    }
+}

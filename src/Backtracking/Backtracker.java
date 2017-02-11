@@ -5,4 +5,5 @@ package Backtracking;
  * @author Yancarlos Diaz
  */
 public class Backtracker {
+
 }
