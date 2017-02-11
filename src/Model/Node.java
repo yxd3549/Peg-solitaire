@@ -55,6 +55,10 @@ public class Node {
         return this.hasPeg;
     }
 
+    public int getIndex(){
+        return this.index;
+    }
+
     public void setAdjacentNode(int index, Node newNode) {
         this.adjNodes[index] = newNode;
     }
@@ -83,5 +87,13 @@ public class Node {
             }
         }
         return -1;
-}
+    }
+
+    public void makeHole(){
+        this.hasPeg = false;
+    }
+
+    public void makePeg(){
+        this.hasPeg = true;
+    }
 }

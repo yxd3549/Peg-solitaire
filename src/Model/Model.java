@@ -10,8 +10,6 @@ public class Model {
     private Node[] board;
     /** The currently selected peg */
     private Node selected;
-    /** The index of the currently selected peg */
-    private int selectedIndex;
 
     /**
      * Public constructor for the Model
@@ -123,7 +121,6 @@ public class Model {
         }
         else if(node.isPeg()){
             this.selected = node;
-            this.selectedIndex = id;
             return true;
         }
         return false; // Should not be reached
@@ -138,7 +135,10 @@ public class Model {
             return false;
         }
         else{
-
+            board[selected.getIndex()].makeHole();
+            board[middleMan].makeHole();
+            board[id].makePeg();
+            return true;
         }
     }
 }
