@@ -74,8 +74,8 @@ public class Node {
             return -1;
         }
         for ( int i = 0; i < 6; i++){
-            if(adjNodes[i].isPeg()) {
-                if (!adjNodes[i].adjNodes[i].isPeg() && adjNodes[i].adjNodes[i].index == index) {
+            if(adjNodes[i] != null && adjNodes[i].isPeg()) {
+                if (adjNodes[i].adjNodes[i] != null && !adjNodes[i].adjNodes[i].isPeg() && adjNodes[i].adjNodes[i].index == index) {
                     return adjNodes[i].index;
                 }
             }

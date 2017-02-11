@@ -17,15 +17,30 @@ public class PegSolitairePTUI {
     public static void main(String[] args){
         PegSolitairePTUI controller = new PegSolitairePTUI();
         Scanner s = new Scanner(System.in);
+
+        System.out.print(controller.model);
         System.out.println("Select a Peg to remove:");
+        controller.model.remove(s.nextInt());
         while(true) {
             System.out.print(controller.model);
 
             System.out.println("Select a Peg to move:");
-            controller.model.select(s.nextInt());
+            int selected = s.nextInt();
+            if(controller.model.select(selected)){
+                System.out.println("Select a Hole to move to");
+                int target = s.nextInt();
+                if(selected == target){
+                    controller.model.move(target);
+                    System.out.println("Unselected");
+                }
+                else if(!controller.model.move(target)){
+                    System.out.println("Invalid move");
+                }
+            }
+            else{
+                System.out.println("Invalid selection");
+            }
 
-            System.out.println("\nSelect a Hole to move to");
-            controller.model.move(s.nextInt());
         }
 
     }

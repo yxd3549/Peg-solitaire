@@ -138,10 +138,15 @@ public class Model {
             board[selected.getIndex()].makeHole();
             board[middleMan].makeHole();
             board[id].makePeg();
+            selected = null;
             return true;
         }
     }
 
+
+    public void remove(int id){
+        board[id].makeHole();
+    }
 
     public int[] getBounds(int row){
         int [] result = new int[2];
@@ -168,6 +173,7 @@ public class Model {
         result[5] = (upBnds[0] + (index-bounds[0]) - 1 >= upBnds[0]) ? upBnds[0] + (index-bounds[0]) - 1 : -1;
         return result;
     }
+
 }
 
 
