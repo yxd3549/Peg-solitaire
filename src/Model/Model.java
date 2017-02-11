@@ -109,18 +109,21 @@ public class Model {
     }
 
     /**
-     * Select takes an x and y coordinate in order to find the desired peg
-     * The return value of this function can be used to tell the player whether a Peg has been successfully selected or not
-     * This function will also change the private variable "selectedPiece" to an instance of a Peg if one is found
-     * In the case of a failure, the value of "selectedPiece" will remain untouched
-     * @param x The horizontal position of the Tile to access
-     * @param y The vertical position of the Tile to access
-     * @return If the is a peg at that position, this method will return true
-     *         If there is a Hole at that position, this method will return false
-     *         If there is a null in that position, this method will return false (Should not happen)
+     *
      */
     public boolean select(int id){
-
+        Node node = board[id];
+        if (id > 15){
+            return false;
+        }
+        else if(!node.isPeg()){
+            return false;
+        }
+        else if(node.isPeg()){
+            this.selected = node;
+            return true;
+        }
+        return false; // Should not be reached
     }
 
     /**
