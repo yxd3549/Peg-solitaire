@@ -34,6 +34,9 @@ public class Node {
         this.hasPeg = isFilled;
     }
 
+    public Node(Node[]){
+
+    }
     /**
      * toString() method override
      * @return Character based on what is contained in the node
@@ -55,7 +58,8 @@ public class Node {
         this.adjNodes[index] = newNode;
     }
 
-    public void setAdjacentNodes(Node [] newNodes){this.adjNodes = newNodes;}
+    public void setAdjacentNodes(Node[] newNodes){this.adjNodes = newNodes;}
+
     public Node getAdjNode(int index) {
         return this.adjNodes[index];
     }

@@ -8,6 +8,8 @@ public class Model {
 
     /** An rray to represent the board of the game. */
     private Node[] board;
+    /** The currently selected peg */
+    private Node selected;
 
     /**
      * Public constructor for the Model
@@ -17,10 +19,9 @@ public class Model {
     public Model(){
         this.board = new Node[15];
         for (int i = 0; i < 15; i++){
-            this.board[i] = new Node();
+            this.board[i] = new Node(true);
         }
         // Peg 0
-        board[0].function([null, null, board[2], ])
         board[0].setAdjacentNode(2, board[2]);
         board[0].setAdjacentNode(3, board[1]);
         // Peg 1
@@ -63,6 +64,38 @@ public class Model {
         board[7].setAdjacentNode(4, board[6]);
         board[7].setAdjacentNode(5, board[3]);
         // Peg 8
+        board[8].setAdjacentNode(0, board[3]);
+        board[8].setAdjacentNode(1, board[9]);
+        board[8].setAdjacentNode(2, board[13]);
+        board[8].setAdjacentNode(3, board[12]);
+        board[8].setAdjacentNode(4, board[7]);
+        board[8].setAdjacentNode(5, board[4]);
+        // Peg 9
+        board[9].setAdjacentNode(2, board[14]);
+        board[9].setAdjacentNode(3, board[13]);
+        board[9].setAdjacentNode(4, board[8]);
+        board[9].setAdjacentNode(5, board[5]);
+        // Peg 10
+        board[10].setAdjacentNode(0, board[6]);
+        board[10].setAdjacentNode(1, board[12]);
+        // Peg 11
+        board[11].setAdjacentNode(0, board[7]);
+        board[11].setAdjacentNode(1, board[12]);
+        board[11].setAdjacentNode(4, board[10]);
+        board[11].setAdjacentNode(5, board[6]);
+        // Peg 12
+        board[12].setAdjacentNode(0, board[8]);
+        board[12].setAdjacentNode(1, board[13]);
+        board[12].setAdjacentNode(4, board[11]);
+        board[12].setAdjacentNode(5, board[7]);
+        // Peg 13
+        board[13].setAdjacentNode(0, board[9]);
+        board[13].setAdjacentNode(1, board[14]);
+        board[13].setAdjacentNode(4, board[12]);
+        board[13].setAdjacentNode(5, board[8]);
+        // Peg 14
+        board[14].setAdjacentNode(4, board[13]);
+        board[14].setAdjacentNode(5, board[9]);
     }
 
     @Override
@@ -81,8 +114,8 @@ public class Model {
      *         If there is a Hole at that position, this method will return false
      *         If there is a null in that position, this method will return false (Should not happen)
      */
-    public boolean select(int x, int y){
-        return false;
+    public boolean select(int id){
+
     }
 
     /**
