@@ -44,9 +44,9 @@ public class Node {
     @Override
     public String toString() {
         if (this.hasPeg) {
-            return "x";
+            return "X";
         } else {
-            return "o";
+            return "O";
         }
     }
 
@@ -64,9 +64,13 @@ public class Node {
         return this.adjNodes[index];
     }
 
+    //assume getAdjInds and index is not filled. adjNodes is list of Nodes adjacent to this one.
     public boolean canMove(int index) {
-
-
-        return true;
+        for(int i = 0; i < 6; i++) {
+            if(adjNodes[i] != null && adjNodes[i].adjNodes[i] == index) {
+                return true;
+            }
+        }
+        return false;
     }
 }
