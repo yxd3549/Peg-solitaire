@@ -6,7 +6,7 @@ package Model;
  */
 public class Model {
 
-    /** An rray to represent the board of the game. */
+    /** An array to represent the board of the game. */
     private Node[] board;
     /** The currently selected peg */
     private Node selected;
@@ -101,10 +101,10 @@ public class Model {
     @Override
     public String toString(){
         String s = "     " + board[0].toString()
-                + "/n   " + board[1].toString() + " " + board[2].toString()
-                + "/n  " + board[3].toString() + " " + board[4].toString() + " " + board[5].toString()
-                + "/n " + board[6].toString() + " " + board[7].toString() + " " + board[8].toString() + " " + board[9].toString()
-                + "/n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString();
+                + "\n   " + board[1].toString() + " " + board[2].toString()
+                + "\n  " + board[3].toString() + " " + board[4].toString() + " " + board[5].toString()
+                + "\n " + board[6].toString() + " " + board[7].toString() + " " + board[8].toString() + " " + board[9].toString()
+                + "\n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString();
         return s;
     }
 
@@ -140,6 +140,7 @@ public class Model {
      *         IF the Peg is unselected, this method will return false
      */
     public boolean move(int x, int y){
+
         return false;
     }
 }
