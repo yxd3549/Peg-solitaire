@@ -21,26 +21,38 @@ public class PegSolitairePTUI {
         System.out.print(controller.model);
         System.out.println("Select a Peg to remove:");
         controller.model.remove(s.nextInt());
-        while(true) {
+        while(!controller.model.hasWon()) {
             System.out.print(controller.model);
-
-            System.out.println("Select a Peg to move:");
-            int selected = s.nextInt();
-            if(controller.model.select(selected)){
-                System.out.println("Select a Hole to move to");
-                int target = s.nextInt();
-                if(selected == target){
-                    controller.model.move(target);
-                    System.out.println("Unselected");
-                }
-                else if(!controller.model.move(target)){
-                    System.out.println("Invalid move");
+            System.out.println("Move | Hint | Solve | Restart | RAGEQUIT");
+            String choice = s.next();
+            if(choice.startsWith("M") || choice.startsWith("m")) {
+                System.out.println("Select a Peg to move:");
+                int selected = s.nextInt();
+                if (controller.model.select(selected)) {
+                    System.out.println("Select a Hole to move to");
+                    int target = s.nextInt();
+                    if (selected == target) {
+                        controller.model.move(target);
+                        System.out.println("Unselected");
+                    } else if (!controller.model.move(target)) {
+                        System.out.println("Invalid move");
+                    }
+                } else {
+                    System.out.println("Invalid selection");
                 }
             }
-            else{
-                System.out.println("Invalid selection");
+            else if(choice.startsWith("H") || choice.startsWith("h")){
+                continue;
             }
-
+            else if(choice.startsWith("S") || choice.startsWith("s")){
+                continue;
+            }
+            else if(choice.startsWith("Re") || choice.startsWith("re")){
+                controller.model = new Model();
+            }
+            else if(choice.startsWith("RA") || choice.startsWith("ra")){
+                return;
+            }
         }
 
     }
