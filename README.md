@@ -5,5 +5,5 @@ Textual and visual representation of the triangular peg-solitaire
 |------|---------|------|--------|
 | Yancarlos Diaz | Rochester Institute of Technology | Sophomore | |
 | Bryan Camp | Rochester Institute of Technology | Sophomore | |
-| Michelle Zhou | Cornell University | Sophomore |
+| Michelle Zhou | Cornell University | Sophomore | myz6@cornell.edu |
 | Luke Shadler | Rochester Institute of Technology | Senior | lxs2208@rit.edu |
