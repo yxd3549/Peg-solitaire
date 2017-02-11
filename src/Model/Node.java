@@ -8,7 +8,10 @@ package Model;
  * @author Michelle Zhou
  */
 public class Node {
-
+    /**
+     * An index of where the Node is in the board array.
+     */
+    private int index;
     /**
      * A list of adjacent Nodes
      */
@@ -66,8 +69,19 @@ public class Node {
         if (!hasPeg){
             return -1;
         }
-
-
-        return ;
-    }
+        for ( int i = 0; i < 6; i++){
+            if(this.adjNodes[i] == null){
+                break;
+            }
+            else if(adjNodes[i].isPeg()){
+                if(!adjNodes[i].adjNodes[i].isPeg()){
+                    return adjNodes[i].index;
+                }
+            }
+            else{
+                break;
+            }
+        }
+        return -1;
+}
 }
