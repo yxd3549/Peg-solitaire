@@ -150,6 +150,10 @@ public class Model {
         return result;
     }
 
+    public int getRow(int index){
+        return (int)(0.5*Math.sqrt(1.0+8.0*index)-0.5);
+    }
+
     public int[] getAdjInds(int index){
         int row = this.getRow(index);
         int [] bounds = this.getBounds(row);

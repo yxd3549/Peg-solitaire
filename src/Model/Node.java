@@ -45,9 +45,9 @@ public class Node {
     @Override
     public String toString() {
         if (this.hasPeg) {
-            return "x";
+            return "X";
         } else {
-            return "o";
+            return "O";
         }
     }
 
@@ -74,16 +74,10 @@ public class Node {
             return -1;
         }
         for ( int i = 0; i < 6; i++){
-            if(this.adjNodes[i] == null){
-                break;
-            }
-            else if(adjNodes[i].isPeg()){
-                if(!adjNodes[i].adjNodes[i].isPeg()){
+            if(adjNodes[i].isPeg()) {
+                if (!adjNodes[i].adjNodes[i].isPeg() && adjNodes[i].adjNodes[i].index == index) {
                     return adjNodes[i].index;
                 }
-            }
-            else{
-                break;
             }
         }
         return -1;
