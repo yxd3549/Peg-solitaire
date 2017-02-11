@@ -24,36 +24,36 @@ public class PegSolitairePTUI {
         while(!controller.model.hasWon()) {
             System.out.print(controller.model);
             System.out.println("Move | Hint | Solve | Restart | RAGEQUIT");
-            String choice = s.next();
-            if(choice.startsWith("M") || choice.startsWith("m")) {
-                System.out.println("Select a Peg to move:");
-                int selected = s.nextInt();
-                if (controller.model.select(selected)) {
-                    System.out.println("Select a Hole to move to");
-                    int target = s.nextInt();
-                    if (selected == target) {
-                        controller.model.move(target);
-                        System.out.println("Unselected");
-                    } else if (!controller.model.move(target)) {
-                        System.out.println("Invalid move");
+            String choice = s.next().toLowerCase();
+                if (choice.equals("move")) {
+                    System.out.println("Select a Peg to move:");
+                    int selected = s.nextInt();
+                    if (controller.model.select(selected)) {
+                        System.out.println("Select a Hole to move to");
+                        int target = s.nextInt();
+                        if (selected == target) {
+                            controller.model.move(target);
+                            System.out.println("Unselected");
+                        } else if (!controller.model.move(target)) {
+                            System.out.println("Invalid move");
+                        }
+                    } else {
+                        System.out.println("Invalid selection");
                     }
+                } else if (choice.equals("hint")) {
+                    continue;
+                } else if (choice.equals("solve")) {
+                    continue;
+                } else if (choice.equals("restart")) {
+                    controller.model = new Model();
+                } else if (choice.equals("ragequit")) {
+                    System.exit(2);
                 } else {
-                    System.out.println("Invalid selection");
+                    System.out.println("Error: Please provide correct input...");
                 }
-            }
-            else if(choice.startsWith("H") || choice.startsWith("h")){
-                continue;
-            }
-            else if(choice.startsWith("S") || choice.startsWith("s")){
-                continue;
-            }
-            else if(choice.startsWith("R") || choice.startsWith("r")){
-                controller.model = new Model();
-            }
-            else if(choice.startsWith("RA") || choice.startsWith("ra") || choice.startsWith("Ra")){
-                return;
             }
         }
 
     }
-}
+
+
