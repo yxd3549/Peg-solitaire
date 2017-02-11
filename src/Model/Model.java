@@ -128,10 +128,14 @@ public class Model {
 
     /**
      *
-
+     */
     public boolean move(int id){
-        if(selected.canMove(id)){
+        int middleMan = selected.canMove(id);
+        if(middleMan == -1){
+            return false;
+        }
+        else{
 
         }
-    }*/
+    }
 }
