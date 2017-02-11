@@ -63,4 +63,10 @@ public class Node {
     public Node getAdjNode(int index) {
         return this.adjNodes[index];
     }
+
+    public boolean canMove(int index) {
+
+
+        return true;
+    }
 }
