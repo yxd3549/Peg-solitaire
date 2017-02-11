@@ -127,22 +127,11 @@ public class Model {
     }
 
     /**
-     * Move takes an x and y coordinate and attempts to move the selectedPiece to those coordinates
      *
-     * If it succeeds, the place where the selectedPiece was will become a Hole as well
-     * as the piece that was in between the selectedPiece and the target.
-     * Nothing needs to be done to the target.
-     *
-     * If it fails to do so, the selectedPiece variable will not change
-     * The exception to this is the case where the coordinates point to where the selectedPiece is
-     * In such case, the piece will be unselected and the variable will become null
-     * @param x The horizontal position of the Tile to target
-     * @param y The vertical position of the Tile to target
-     * @return If the Peg moves, this method will return true
-     *         If the Peg does not move, this method will return false
-     *         IF the Peg is unselected, this method will return false
      */
-    public boolean move(int x, int y){
-        return false;
+    public boolean move(int id){
+        if(selected.canMove(id)){
+
+        }
     }
 }
