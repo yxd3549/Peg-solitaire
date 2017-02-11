@@ -148,6 +148,21 @@ public class Model {
         board[id].makeHole();
     }
 
+    public boolean hasWon(){
+        int remaining = 0;
+        for(int i = 0; i < 15; i++){
+            if(board[i].isPeg()){
+                remaining++;
+            }
+        }
+        if (remaining == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public int[] getBounds(int row){
         int [] result = new int[2];
         result[0] = (row)*(row+1)/2;
