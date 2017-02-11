@@ -2,12 +2,13 @@ package PTUI;
 
 import Model.Model;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
  *
  */
-public class PegSolitairePTUI {
+public class PegSolitairePTUI{
 
     private Model model;
 
@@ -21,7 +22,18 @@ public class PegSolitairePTUI {
         System.out.print(controller.model);
         System.out.println("Select a Peg to remove:");
         controller.model.remove(s.nextInt());
+        String os = System.getProperty("os.name");
         while(true) {
+            try {
+                if (os.equals("windows")) Runtime.getRuntime().exec("cmd /c cls");
+                else {
+                    System.out.println("\u001b[2J \u001b[H");
+                    System.out.flush();
+                }
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
             System.out.print(controller.model);
 
             System.out.println("Select a Peg to move:");
