@@ -19,7 +19,7 @@ public class Model {
     public Model(){
         this.board = new Node[15];
         for (int i = 0; i < 15; i++){
-            this.board[i] = new Node(true);
+            this.board[i] = new Node(true, i);
         }
         // Peg 0
         board[0].setAdjacentNode(2, board[2]);
@@ -130,8 +130,44 @@ public class Model {
      *
      */
     public boolean move(int id){
-        if(selected.canMove(id)){
-
+        int middleMan = selected.canMove(id);
+        if(middleMan == -1){
+            return false;
+        }
+        else{
+            board[selected.getIndex()].makeHole();
+            board[middleMan].makeHole();
+            board[id].makePeg();
+            return true;
         }
     }
+
+
+    public int[] getBounds(int row){
+        int [] result = new int[2];
+        result[0] = (row)*(row+1)/2;
+        result[1] = (row)*(row+3)/2;
+        return result;
+    }
+
+    public int getRow(int index){
+        return (int)(0.5*Math.sqrt(1.0+8.0*index)-0.5);
+    }
+
+    public int[] getAdjInds(int index){
+        int row = this.getRow(index);
+        int [] bounds = this.getBounds(row);
+        int [] upBnds = this.getBounds(row-1);
+        int [] dnBnds = this.getBounds(row+1);
+        int [] result = new int[6];
+        result[0] = (upBnds[0] + (index-bounds[0]) <= upBnds[1]) ? upBnds[0] + (index-bounds[0]) : -1;
+        result[1] = (index + 1 <= bounds[1]) ? index + 1 : -1;
+        result[2] = dnBnds[0] + (index - bounds[0]) + 1;
+        result[3] = dnBnds[0] + (index - bounds[0]);
+        result[4] = (index - 1 >= bounds[0]) ? index - 1 : -1;
+        result[5] = (upBnds[0] + (index-bounds[0]) - 1 >= upBnds[0]) ? upBnds[0] + (index-bounds[0]) - 1 : -1;
+        return result;
+    }
 }
+
+
