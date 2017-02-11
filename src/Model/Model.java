@@ -10,6 +10,8 @@ public class Model {
     private Node[] board;
     /** The currently selected peg */
     private Node selected;
+    /** The index of the currently selected peg */
+    private int selectedIndex;
 
     /**
      * Public constructor for the Model
@@ -19,7 +21,7 @@ public class Model {
     public Model(){
         this.board = new Node[15];
         for (int i = 0; i < 15; i++){
-            this.board[i] = new Node(true);
+            this.board[i] = new Node(true, i);
         }
         // Peg 0
         board[0].setAdjacentNode(2, board[2]);
@@ -121,6 +123,7 @@ public class Model {
         }
         else if(node.isPeg()){
             this.selected = node;
+            this.selectedIndex = id;
             return true;
         }
         return false; // Should not be reached

@@ -29,9 +29,10 @@ public class Node {
      * Public Constructor
      * @param isFilled: if there is a peg here when initialized
      */
-    public Node(boolean isFilled) {
+    public Node(boolean isFilled, int index) {
         adjNodes = new Node[6];
         this.hasPeg = isFilled;
+        this.index = index;
     }
 
     /**
