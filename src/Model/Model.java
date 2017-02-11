@@ -6,15 +6,63 @@ package Model;
  */
 public class Model {
 
-    /* A 2D array to represent the board of the game. Only 15 of the indexes will actually contain an instance of a Peg or Hole*/
+    /** An rray to represent the board of the game. */
     private Node[] board;
 
     /**
      * Public constructor for the Model
-     * The constructor initializes the board and fills it with Pegs and one Hole.
+     * The constructor initializes the board and fills it with Pegs (Nodes with a value of 1)
+     * It then links the Nodes that are adjacent to each other
      */
     public Model(){
-
+        this.board = new Node[15];
+        for (int i = 0; i < 15; i++){
+            this.board[i] = new Node();
+        }
+        // Peg 0
+        board[0].function([null, null, board[2], ])
+        board[0].setAdjacentNode(2, board[2]);
+        board[0].setAdjacentNode(3, board[1]);
+        // Peg 1
+        board[1].setAdjacentNode(0, board[0]);
+        board[1].setAdjacentNode(1, board[2]);
+        board[1].setAdjacentNode(3, board[3]);
+        board[1].setAdjacentNode(2, board[4]);
+        // Peg 2
+        board[2].setAdjacentNode(5, board[0]);
+        board[2].setAdjacentNode(4, board[1]);
+        board[2].setAdjacentNode(3, board[4]);
+        board[2].setAdjacentNode(2, board[5]);
+        // Peg 3
+        board[3].setAdjacentNode(0, board[1]);
+        board[3].setAdjacentNode(1, board[4]);
+        board[3].setAdjacentNode(2, board[7]);
+        board[3].setAdjacentNode(3, board[6]);
+        // Peg 4
+        board[4].setAdjacentNode(0, board[2]);
+        board[4].setAdjacentNode(1, board[5]);
+        board[4].setAdjacentNode(2, board[8]);
+        board[4].setAdjacentNode(3, board[7]);
+        board[4].setAdjacentNode(4, board[3]);
+        board[4].setAdjacentNode(5, board[1]);
+        // Peg 5
+        board[5].setAdjacentNode(2, board[9]);
+        board[5].setAdjacentNode(3, board[8]);
+        board[5].setAdjacentNode(4, board[4]);
+        board[5].setAdjacentNode(5, board[2]);
+        // Peg 6
+        board[6].setAdjacentNode(0, board[3]);
+        board[6].setAdjacentNode(1, board[7]);
+        board[6].setAdjacentNode(2, board[11]);
+        board[6].setAdjacentNode(3, board[10]);
+        // Peg 7
+        board[7].setAdjacentNode(0, board[4]);
+        board[7].setAdjacentNode(1, board[8]);
+        board[7].setAdjacentNode(2, board[12]);
+        board[7].setAdjacentNode(3, board[11]);
+        board[7].setAdjacentNode(4, board[6]);
+        board[7].setAdjacentNode(5, board[3]);
+        // Peg 8
     }
 
     @Override
