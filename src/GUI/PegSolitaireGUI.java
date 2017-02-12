@@ -52,6 +52,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         BorderPane layout = new BorderPane();
         GridPane grid = makeBoard();
         Button restart = new Button("restart");
+        makeBoard().setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT!");
         Button solve = new Button("Solve");
         restart.setMaxWidth(Double.MAX_VALUE);
@@ -83,6 +84,7 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     private GridPane makeBoard(){
         GridPane pane = new GridPane();
+        int index = 0;
         for(int i = 1; i < 6; i++){
             for(int j = 0; i != j; j++){
                 Button b = new Button();
@@ -95,13 +97,31 @@ public class PegSolitaireGUI extends Application implements Observer {
                             "-fx-max-width: 100px; " +
                             "-fx-max-height: 100px; "
                 );
+                int finalIndex = index;
+                b.setOnMouseClicked(event -> buttonEvent(b, finalIndex));
                 buttons[buttons.length-1] = b;
-
+                index++;
             }
         }
         return pane;
     }
     public static void main( String[] args){
         Application.launch(PegSolitaireGUI.class);
+    }
+
+    private void buttonEvent( Button b, int index){
+        if(selected == null){
+            model.select(index);
+        }
+        else{
+            model.move(index);
+        }
+    }
+    private void buttonRestart( Button b){
+        model = new Model();
+    }
+
+    private void buttonQuit( Button b){
+        System.exit(0);
     }
 }
