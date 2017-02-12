@@ -125,3 +125,6 @@ public class PegSolitaireGUI extends Application implements Observer {
         System.exit(0);
     }
 }
+
+
+// This comment is here because Yan doesnt understand version control
