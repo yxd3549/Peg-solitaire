@@ -54,6 +54,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         Button restart = new Button("restart");
         makeBoard().setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT");
+
         Button solve = new Button("Solve");
 
         VBox clickables = new VBox(restart, quit, solve);
@@ -116,5 +117,9 @@ public class PegSolitaireGUI extends Application implements Observer {
     }
     private void buttonRestart( Button b){
         model = new Model();
+    }
+
+    private void buttonQuit( Button b){
+        System.exit(0);
     }
 }
