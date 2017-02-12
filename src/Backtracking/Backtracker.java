@@ -13,8 +13,10 @@ import java.util.Optional;
  */
 public class Backtracker {
     private ArrayList<Model> models;
+    private ArrayList<Move> moves;
     public Backtracker(){
         models = new ArrayList<Model>();
+        moves  = new ArrayList<Move>();
     }
 
 
@@ -32,22 +34,49 @@ public class Backtracker {
             System.out.println("WINNER");
             return current;
         } else {
-            System.out.println("Adding child Models");
+            //System.out.println("Adding child Models");
+
             for (Model child : current.getSuccessors()) {
                  Model solution = solve(child);
                  if(solution != null){
                      return solution;
                  }
             }
+
+            /*
+            Move [] childMoves = current.getValidMoves();
+            ArrayList<Model> successors = new ArrayList<Model>(childMoves.length);
+
+            for(Move move: childMoves){
+                Model child = new Model(current);
+                child.setSelected(null);
+                boolean sc = child.select(move.getFrom());
+                boolean sc2 = child.move(move.getTo());
+                this.moves.add(move);
+                Model solution = solve(child);
+                if(solution != null) return solution;
+                else moves.remove(move);
+            }
+            */
         }
         return null;
     }
 
-    private Model testNext(){
-        if(!this.models.isEmpty()){
-            Model nextModel = this.models.remove(0);
-            return this.solve(nextModel);
+
+    public List<Model> getSuccessors(Model model) {
+        Move[] moves = model.getValidMoves();
+        ArrayList<Model> successors = new ArrayList<Model>(moves.length);
+        for (Move move : moves) {
+            Model child = new Model(model);
+            child.setSelected(null);
+            boolean sc = child.select(move.getFrom());
+            //System.out.println(child.selected.getIndex());
+            boolean sc2 = child.move(move.getTo());
+            if (!sc || !sc2) {
+                System.out.println("getSuccessors(): Something went wrong... (sc " + sc + ")(sc2 " + sc2 + ")");
+            }
+            successors.add(child);
         }
-        return null;
+        return successors;
     }
 }

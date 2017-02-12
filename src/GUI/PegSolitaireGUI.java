@@ -73,7 +73,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         restart.setMaxWidth(Double.MAX_VALUE);
         quit.setMaxWidth(Double.MAX_VALUE);
         solve.setMaxWidth(Double.MAX_VALUE);
-        solve.setMaxWidth(Double.MAX_VALUE);
+        moves.setMaxWidth(Double.MAX_VALUE);
 
 
         VBox clickables = new VBox(restart, quit, solve,moves);
@@ -207,7 +207,6 @@ public class PegSolitaireGUI extends Application implements Observer {
             return;
         }
         ArrayList<Move> solution = modelSol.getMoves();
-        this.model = modelSol;
         this.model.addObserver(this);
         System.out.println("Solution: ");
         for(Move i : solution){
@@ -223,7 +222,8 @@ public class PegSolitaireGUI extends Application implements Observer {
         alert.setContentText(msg);
 
         alert.showAndWait();
-        this.model = modelSol;
+        this.model = saveModel;
 
     }
+
 }
