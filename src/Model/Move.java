@@ -16,5 +16,9 @@ public class Move{
         return res;
     }
 
+    public boolean equals(Move move){
+        return this.to == move.getTo() && this.from == move.getFrom();
+    }
+
 }
 
