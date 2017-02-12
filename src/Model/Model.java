@@ -28,6 +28,14 @@ public class Model extends Observable{
             this.board[i] = new Node(true, i);
         }
 
+        for(int i = 0; i < 15; ++i){
+            int [] tempAdj = this.getAdjInds(i);
+            for(int j = 0; j<6; j++){
+                if(tempAdj[j] != -1)
+                    board[i].setAdjacentNode(j,board[tempAdj[j]]);
+            }
+        }
+        /*
         // Peg 0
         board[0].setAdjacentNode(2, board[2]);
         board[0].setAdjacentNode(3, board[1]);
@@ -103,6 +111,7 @@ public class Model extends Observable{
         // Peg 14
         board[14].setAdjacentNode(4, board[13]);
         board[14].setAdjacentNode(5, board[9]);
+*/
     }
 
     @Override
@@ -187,7 +196,7 @@ public class Model extends Observable{
         result[0] = (upBnds[0] + (index-bounds[0]) <= upBnds[1]) ? upBnds[0] + (index-bounds[0]) : -1;
         result[1] = (index + 1 <= bounds[1]) ? index + 1 : -1;
         result[2] = (dnBnds[0] + (index - bounds[0]) + 1 < 15) ? dnBnds[0] + (index - bounds[0]) + 1 : -1;
-        result[3] = (dnBnds[0] + (index - bounds[0]) < 15) ? dnBnds[0] + (index - bounds[0]) + 1 : -1;
+        result[3] = (dnBnds[0] + (index - bounds[0])     < 15) ? dnBnds[0] + (index - bounds[0]) : -1;
         result[4] = (index - 1 >= bounds[0]) ? index - 1 : -1;
         result[5] = (upBnds[0] + (index-bounds[0]) - 1 >= upBnds[0]) ? upBnds[0] + (index-bounds[0]) - 1 : -1;
         return result;

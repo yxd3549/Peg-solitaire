@@ -163,8 +163,9 @@ public class PegSolitaireGUI extends Application implements Observer {
             if(madeMove) {
                 //System.out.println("Moved to: " + index);
             }
-            else
-                //System.out.println("Invalid Move...");
+            else {
+                System.out.println("Invalid Move...");
+            }
             selected = null;
         }
     }
