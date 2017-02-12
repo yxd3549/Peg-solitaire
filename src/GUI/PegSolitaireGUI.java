@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Optional;
+import java.util.Random;
 
 import Model.*;
 
@@ -55,6 +56,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         stage = primaryStage;
         BorderPane layout = new BorderPane();
         GridPane grid = makeBoard();
+        this.model.remove(Math.abs((new Random()).nextInt() % 15));
         Button restart = new Button("restart");
         restart.setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT");
@@ -89,13 +91,11 @@ public class PegSolitaireGUI extends Application implements Observer {
     public void repaint(){
         Node [] tempModel = model.getBoard();
         for(int i = 0; i < buttons.length; ++i){
-            System.out.println(i + ": " + tempModel[i].isPeg());
             if(tempModel[i].isPeg()) {
                 ImageView temp = new ImageView(imageVball);
                 temp.setFitHeight(100);
                 temp.setFitWidth(100);
                 buttons[i].setGraphic(temp);
-                System.out.println("Set button to vball");
             } else {
                 buttons[i].setGraphic(null);
             }
@@ -143,7 +143,7 @@ public class PegSolitaireGUI extends Application implements Observer {
                 System.out.println(index + " Moved to.");
             }
             else
-                System.out.println("Invalid Move...");
+                System.out.println("Can't Move to " + index + "...");
             selected = null;
             this.repaint();
 
@@ -151,6 +151,8 @@ public class PegSolitaireGUI extends Application implements Observer {
     }
     private void buttonRestart( Button b){
         model = new Model();
+        this.model.remove(Math.abs((new Random()).nextInt() % 15));
+        this.repaint();
     }
 
     private void buttonQuit( Button b){
