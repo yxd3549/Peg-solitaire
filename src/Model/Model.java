@@ -84,7 +84,7 @@ public class Model extends Observable{
         board[9].setAdjacentNode(5, board[5]);
         // Peg 10
         board[10].setAdjacentNode(0, board[6]);
-        board[10].setAdjacentNode(1, board[12]);
+        board[10].setAdjacentNode(1, board[11]);
         // Peg 11
         board[11].setAdjacentNode(0, board[7]);
         board[11].setAdjacentNode(1, board[12]);
@@ -218,7 +218,7 @@ public class Model extends Observable{
     }
 
     public boolean hasLost(){
-        return this.getValidMoves().length > 0;
+        return this.getValidMoves().length == 0;
     }
 }
 

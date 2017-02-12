@@ -91,6 +91,9 @@ public class PegSolitaireGUI extends Application implements Observer {
         if(model.hasLost()){
             label.setText("You are stuck");
         }
+        else{
+            label.setText("Peg-Solitaire");
+        }
         repaint();
     }
     public void repaint(){
@@ -161,6 +164,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         this.model.addObserver(this);
         this.board = model.getBoard();
         this.model.remove(Math.abs((new Random()).nextInt() % 15));
+
     }
 
     private void buttonQuit( Button b){
