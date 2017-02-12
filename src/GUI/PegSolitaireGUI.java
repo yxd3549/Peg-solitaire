@@ -52,8 +52,9 @@ public class PegSolitaireGUI extends Application implements Observer {
         BorderPane layout = new BorderPane();
         GridPane grid = makeBoard();
         Button restart = new Button("restart");
-        makeBoard().setOnMouseClicked(event -> buttonRestart(restart));
+        restart.setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT");
+        quit.setOnMouseClicked(event -> buttonQuit(quit));
 
         Button solve = new Button("Solve");
 
