@@ -2,6 +2,7 @@ package GUI;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
@@ -39,7 +41,7 @@ public class PegSolitaireGUI extends Application implements Observer {
     public void start(Stage primaryStage) throws Exception{
         this.model = new Model();
         this.model.addObserver(this);
-
+        this.buttons = new Button[15];
         //Making the Label
         this.label = new Label("Peg-Solitaire");
         label.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
@@ -48,6 +50,23 @@ public class PegSolitaireGUI extends Application implements Observer {
 
         stage = primaryStage;
         BorderPane layout = new BorderPane();
+        GridPane grid = makeBoard();
+        Button restart = new Button("restart");
+        Button quit = new Button("RAGEQUIT");
+        Button solve = new Button("Solve");
+
+        VBox clickables = new VBox(restart, quit, solve);
+        clickables.setPadding(new Insets(20,10,20,10));
+        clickables.setSpacing(10);
+        VBox box = new VBox(label, grid);
+        layout.setLeft(box);
+        layout.setCenter(clickables);
+
+        Scene s = new Scene(layout);
+        primaryStage.setScene(s);
+        primaryStage.setResizable( false );
+        primaryStage.setTitle("Peg-Solitaire Game! BrickHack 2017");
+        primaryStage.show();
 
 
     }
@@ -61,16 +80,25 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     private GridPane makeBoard(){
         GridPane pane = new GridPane();
-        for(int i = 0; i < 15; i++){
+        for(int i = 1; i < 6; i++){
             for(int j = 0; i != j; j++){
                 Button b = new Button();
                 pane.add(b,j,i);
+                b.setPadding(new Insets(1,1,1,1));
+                b.setMinSize(50,50);
+                b.setStyle( "-fx-background-radius: 25em; " +
+                            "-fx-min-width: 100px; " +
+                            "-fx-min-height: 100px; " +
+                            "-fx-max-width: 100px; " +
+                            "-fx-max-height: 100px; "
+                );
                 buttons[buttons.length-1] = b;
+
             }
         }
         return pane;
     }
     public static void main( String[] args){
-
+        Application.launch(PegSolitaireGUI.class);
     }
 }
