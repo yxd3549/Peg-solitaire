@@ -28,6 +28,8 @@ import java.util.Random;
 
 import Model.*;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+
 
 /**
  * PegSolitaireGUI is the Graphical User Interface of the game.
@@ -61,6 +63,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         stage = primaryStage;
         BorderPane layout = new BorderPane();
         GridPane grid = makeBoard();
+        grid.setGridLinesVisible(true);
         this.model.remove(Math.abs((new Random()).nextInt() % 15));
         Button restart = new Button("restart");
         restart.setOnMouseClicked(event -> buttonRestart(restart));
@@ -128,11 +131,12 @@ public class PegSolitaireGUI extends Application implements Observer {
         GridPane pane = new GridPane();
         int index = 0;
         int btnInd = 0;
+        int start = 5;
         for(int i = 1; i < 6; i++){
-            for(int j = 0; i != j; j++){
+            for(int j = 0; j < i; j++){
+                int place = start;
                 Button b = new Button();
-
-                pane.add(b,j,i);
+                pane.add(b,place,i);
                 b.setPadding(new Insets(1,1,1,1));
                 b.setMinSize(50,50);
                 b.setStyle( "-fx-background-radius: 25em; " +
@@ -142,10 +146,13 @@ public class PegSolitaireGUI extends Application implements Observer {
                             "-fx-max-height: 100px; "
                 );
                 int finalIndex = index;
+                System.out.println(index);
                 b.setOnMouseClicked(event -> buttonEvent(b, finalIndex));
                 buttons[btnInd++] = b;
                 index++;
+                place += 2;
             }
+            start--;
         }
         repaint();
         return pane;

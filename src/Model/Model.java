@@ -160,6 +160,7 @@ public class Model extends Observable{
      */
     public boolean move(int id){
         int middleMan = selected.canMove(id);
+        //System.out.println(middleMan);
         if(middleMan == -1){
             setChanged();
             notifyObservers();
@@ -243,7 +244,7 @@ public class Model extends Observable{
 
     public List<Model> getSuccessors(){
         ArrayList<Model> successors = new ArrayList<Model>();
-        Move [] moves = this.getValidMoves();
+        Move[] moves = this.getValidMoves();
         for(Move move: moves){
             Model child = new Model(this);
             child.select(move.getFrom());
