@@ -171,7 +171,6 @@ public class Model extends Observable{
      *
      */
     public boolean move(int id){
-
         int middleMan = this.selected.canMove(id);
         if(middleMan == -1){
             setChanged();
@@ -191,7 +190,6 @@ public class Model extends Observable{
             return true;
         }
     }
-
 
     public void remove(int id){
         this.board[id].makeHole();
