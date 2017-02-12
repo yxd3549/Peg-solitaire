@@ -61,6 +61,13 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     private GridPane makeBoard(){
         GridPane pane = new GridPane();
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; i != j; j++){
+                Button b = new Button();
+                pane.add(b,j,i);
+                buttons[buttons.length-1] = b;
+            }
+        }
         return pane;
     }
     public static void main( String[] args){
