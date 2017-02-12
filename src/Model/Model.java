@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -176,8 +177,8 @@ public class Model extends Observable{
         int [] result = new int[6];
         result[0] = (upBnds[0] + (index-bounds[0]) <= upBnds[1]) ? upBnds[0] + (index-bounds[0]) : -1;
         result[1] = (index + 1 <= bounds[1]) ? index + 1 : -1;
-        result[2] = dnBnds[0] + (index - bounds[0]) + 1;
-        result[3] = dnBnds[0] + (index - bounds[0]);
+        result[2] = (dnBnds[0] + (index - bounds[0]) + 1 < 15) ? dnBnds[0] + (index - bounds[0]) + 1 : -1;
+        result[3] = (dnBnds[0] + (index - bounds[0]) < 15) ? dnBnds[0] + (index - bounds[0]) + 1 : -1;
         result[4] = (index - 1 >= bounds[0]) ? index - 1 : -1;
         result[5] = (upBnds[0] + (index-bounds[0]) - 1 >= upBnds[0]) ? upBnds[0] + (index-bounds[0]) - 1 : -1;
         return result;
@@ -185,6 +186,26 @@ public class Model extends Observable{
 
     public Node [] getBoard(){
         return this.board;
+    }
+
+    public Move [] getValidMoves(){
+        ArrayList<Move> res = new ArrayList<Move>();
+        for(int i = 0; i < 15; ++i){
+            if(!board[i].isPeg()) {
+                int[] adjTemp = this.getAdjInds(i);
+                for (int j = 0; j < 6; ++j) {
+                    int a = adjTemp[j];
+                    if (a != -1 && board[a].isPeg()){
+                        int b = this.getAdjInds(a)[j];
+                        if(b != -1 && board[b].isPeg()){
+                            res.add(new Move(b,i));
+                        }
+                    }
+                }
+            }
+        }
+        Move [] result = res.toArray(new Move[res.size()]);
+        return result;
     }
 
 }

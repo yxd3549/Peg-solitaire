@@ -26,6 +26,7 @@ import java.util.Random;
 
 import Model.*;
 
+
 /**
  * PegSolitaireGUI is the Graphical User Interface of the game.
  * @author Yancarlos Diaz
@@ -137,10 +138,9 @@ public class PegSolitaireGUI extends Application implements Observer {
             selected = b;
             System.out.println(index + " Selected.");
             System.out.print("You can move to ");
-            for(int i: this.model.getAdjInds(index)){
-                if(i>0 && i < 15) System.out.print(" " + i);
+            for(Move i: this.model.getValidMoves()) {
+                System.out.println(i);
             }
-            System.out.println();
         }
         else{
             boolean madeMove = model.move(index);
