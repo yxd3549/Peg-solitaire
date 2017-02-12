@@ -58,9 +58,10 @@ public class PegSolitaireGUI extends Application implements Observer {
         stage = primaryStage;
         BorderPane layout = new BorderPane();
         GridPane grid = makeBoard();
+        //grid.setGridLinesVisible(true);
+        Button restart = new Button("Restart");
         //this.model.remove(Math.abs((new Random()).nextInt() % 15));
         this.model.remove(14);
-        Button restart = new Button("Restart");
         restart.setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT");
         quit.setOnMouseClicked(event -> buttonQuit(quit));
@@ -126,24 +127,46 @@ public class PegSolitaireGUI extends Application implements Observer {
         GridPane pane = new GridPane();
         int index = 0;
         int btnInd = 0;
+//        for(int i = 1; i < 6; i++){
+//            for(int j = 0; i != j; j++){
+//                Button b = new Button();
+//
+//                pane.add(b,j,i);
+//                b.setPadding(new Insets(1,1,1,1));
+//                b.setMinSize(50,50);
+//                b.setStyle( "-fx-background-radius: 25em; " +
+//                            "-fx-min-width: 100px; " +
+//                            "-fx-min-height: 100px; " +
+//                            "-fx-max-width: 100px; " +
+//                            "-fx-max-height: 100px; "
+//                );
+//                int finalIndex = index;
+//                b.setOnMouseClicked(event -> buttonEvent(b, finalIndex));
+//                buttons[btnInd++] = b;
+//                index++;
+//            }
+//        }
+        int start = 5;
         for(int i = 1; i < 6; i++){
-            for(int j = 0; i != j; j++){
+            for(int j = 0; j < i; j++){
                 Button b = new Button();
-
-                pane.add(b,j,i);
+                pane.add(b,start,i);
                 b.setPadding(new Insets(1,1,1,1));
-                b.setMinSize(50,50);
-                b.setStyle( "-fx-background-radius: 25em; " +
-                            "-fx-min-width: 100px; " +
-                            "-fx-min-height: 100px; " +
-                            "-fx-max-width: 100px; " +
-                            "-fx-max-height: 100px; "
+                b.setMinSize(100,100); //both 50
+                b.setStyle( "-fx-background-radius: 50em; " + //25em
+                        "-fx-min-width: 100px; " +
+                        "-fx-min-height: 100px; " +
+                        "-fx-max-width: 100px; " +
+                        "-fx-max-height: 100px; "
                 );
                 int finalIndex = index;
+                System.out.println(index);
                 b.setOnMouseClicked(event -> buttonEvent(b, finalIndex));
                 buttons[btnInd++] = b;
                 index++;
+                start += 2;
             }
+            start = 5 - i;
         }
         repaint();
         return pane;

@@ -3,8 +3,7 @@ package Model;
 /**
  * Nodes represent the places where a peg can be placed in the game.
  * @author Yancarlos Diaz
- * @author Luke Shadler
- * @author Bryan Camp
+ * @author Luke Shadleror Bryan Camp
  * @author Michelle Zhou
  */
 public class Node {
