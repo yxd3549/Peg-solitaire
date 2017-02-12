@@ -41,7 +41,11 @@ public class PegSolitaireGUI extends Application implements Observer {
     private Node[] board;
     private ImageView btnImage = new ImageView(imageVball);
 
-
+    /**
+     * Overrides start method to initialize GUI
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -71,13 +75,17 @@ public class PegSolitaireGUI extends Application implements Observer {
         Button solve = new Button("Solve");
         solve.setOnMouseClicked(event -> buttonSolve(solve));
 
+        Button hint = new Button("Hint");
+        hint.setOnMouseClicked(event -> buttonHint(hint));
+
+        hint.setMaxWidth(Double.MAX_VALUE);
         restart.setMaxWidth(Double.MAX_VALUE);
         quit.setMaxWidth(Double.MAX_VALUE);
         solve.setMaxWidth(Double.MAX_VALUE);
         moves.setMaxWidth(Double.MAX_VALUE);
 
 
-        VBox clickables = new VBox(restart, quit, solve,moves);
+        VBox clickables = new VBox(restart, quit, solve,moves,hint);
         clickables.setPadding(new Insets(20,10,20,10));
         clickables.setSpacing(10);
         VBox box = new VBox(label, grid);
@@ -92,6 +100,11 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 
+    /**
+     * Updates on any notify call from an Observable
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg){
         this.repaint();
@@ -123,6 +136,10 @@ public class PegSolitaireGUI extends Application implements Observer {
         }
     }
 
+    /**
+     * Initializes board with buttons
+     * @return button layout in Grid
+     */
     private GridPane makeBoard(){
         GridPane pane = new GridPane();
         int index = 0;
@@ -171,10 +188,20 @@ public class PegSolitaireGUI extends Application implements Observer {
         repaint();
         return pane;
     }
+
+    /**
+     * Main method
+     * @param args program arguments (not used)
+     */
     public static void main( String[] args){
         Application.launch(PegSolitaireGUI.class);
     }
 
+    /**
+     * Handles any button press in game
+     * @param b button that was pressed
+     * @param index index of the button in array
+     */
     private void buttonEvent( Button b, int index){
         if(selected == null){
             model.select(index);
@@ -206,6 +233,11 @@ public class PegSolitaireGUI extends Application implements Observer {
             selected = null;
         }
     }
+
+    /**
+     * Handles restart button functionality
+     * @param b restart button
+     */
     private void buttonRestart( Button b){
         this.model = new Model();
         this.model.addObserver(this);
@@ -214,11 +246,18 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 
-
+    /**
+     * Handles quit functionality
+     * @param b RAGEQUIT
+     */
     private void buttonQuit( Button b){
         System.exit(0);
     }
 
+    /**
+     * Handles valid moves functionality
+     * @param b moves button
+     */
     private void buttonMoves(Button b){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
@@ -233,6 +272,10 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 
+    /**
+     * Handles backtracking algorithm solution functionality
+     * @param b solve button
+     */
     private void buttonSolve(Button b){
         Model saveModel = this.model;
         Backtracker backtracker = new Backtracker();
@@ -267,5 +310,34 @@ public class PegSolitaireGUI extends Application implements Observer {
         this.model = saveModel;
 
     }
+
+    private void buttonHint(Button b){
+        Model saveModel = this.model;
+        Backtracker backtracker = new Backtracker();
+        this.model.clearMoves();
+        Model modelSol = backtracker.solve(this.model);
+        if(modelSol == null) {
+            System.out.println("Unsolvable...");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("");
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Unsolvable...");
+
+            alert.showAndWait();
+            return;
+        }
+        ArrayList<Move> solution = modelSol.getMoves();
+        this.model.addObserver(this);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Hint: Try this!");
+        String msg = this.model.getMoves().get(0).toString();
+        alert.setContentText(msg);
+
+        alert.showAndWait();
+        this.model = saveModel;
+
+    }
+
 
 }
