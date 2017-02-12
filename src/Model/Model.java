@@ -11,7 +11,7 @@ public class Model {
     /** The currently selected peg */
     private Node selected;
     /** Player has won if this equals 14 */
-    private int hasWon;
+    private int points;
 
     /**
      * Public constructor for the Model
@@ -19,7 +19,7 @@ public class Model {
      * It then links the Nodes that are adjacent to each other
      */
     public Model(){
-        hasWon = 0;
+        points = 0;
         this.board = new Node[15];
         for (int i = 0; i < 15; i++){
             this.board[i] = new Node(true, i);
@@ -142,13 +142,17 @@ public class Model {
             board[middleMan].makeHole();
             board[id].makePeg();
             selected = null;
-            hasWon++;
+            points++;
             return true;
         }
     }
 
     public void remove(int id){
         board[id].makeHole();
+    }
+
+    public boolean hasWon() {
+        return points >= 14;
     }
 
     public int[] getBounds(int row){
