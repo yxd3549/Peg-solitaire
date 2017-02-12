@@ -140,6 +140,11 @@ public class PegSolitaireGUI extends Application implements Observer {
             model.select(index);
             selected = b;
             System.out.println(index + " Selected.");
+            System.out.print("You can move to ");
+            for(int i: this.model.getAdjInds(index)){
+                if(i>0 && i < 15) System.out.print(" " + i);
+            }
+            System.out.println();
         }
         else{
             boolean madeMove = model.move(index);
