@@ -1,5 +1,6 @@
 package GUI;
 
+import Backtracking.Backtracker;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,10 +21,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 import Model.*;
 
@@ -69,6 +67,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         moves.setOnMouseClicked(event -> buttonMoves(moves));
 
         Button solve = new Button("Solve");
+        solve.setOnMouseClicked(event -> buttonSolve(solve));
 
         restart.setMaxWidth(Double.MAX_VALUE);
         quit.setMaxWidth(Double.MAX_VALUE);
@@ -160,6 +159,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         }
         else{
             boolean madeMove = model.move(index);
+            this.repaint();
             if(madeMove) {
                 //System.out.println("Moved to: " + index);
             }
@@ -193,5 +193,17 @@ public class PegSolitaireGUI extends Application implements Observer {
 
         alert.showAndWait();
 
+    }
+
+    private void buttonSolve(Button b){
+        Model models = (new Backtracker()).solvewithPath(this.model);
+        if(models == null) {
+            System.out.println("Unsolvable...");
+        }
+        ArrayList<Move> solution = models.getMoves();
+        System.out.println("Solution: ");
+        for(Move i : solution){
+            System.out.println(i);
+        }
     }
 }

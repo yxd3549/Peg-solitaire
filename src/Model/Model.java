@@ -1,8 +1,9 @@
 package Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Observable;
-
+import Model.*;
 /**
  * Model.Model.java is used to represent the game and perform every internal operation.
  * @author Yancarlos diaz
@@ -15,6 +16,7 @@ public class Model extends Observable{
     private Node selected;
     /** Player has won if this equals 14 */
     private int points;
+    private ArrayList<Move> moves = new ArrayList<Move>();
 
     /**
      * Public constructor for the Model
@@ -158,10 +160,12 @@ public class Model extends Observable{
             board[selected.getIndex()].makeHole();
             board[middleMan].makeHole();
             board[id].makePeg();
+            Move toAdd = new Move(selected.getIndex(),id);
+            moves.add(toAdd);
             selected = null;
             points++;
-            setChanged();
-            notifyObservers();
+            //setChanged();
+            //notifyObservers();
             return true;
         }
     }
@@ -229,6 +233,8 @@ public class Model extends Observable{
     public boolean hasLost(){
         return this.getValidMoves().length == 0;
     }
+
+    public ArrayList<Move> getMoves(){ return moves; }
 }
 
 
