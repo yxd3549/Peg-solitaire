@@ -1,10 +1,12 @@
 package Model;
 
+import java.util.Observable;
+
 /**
  * Model.Model.java is used to represent the game and perform every internal operation.
  * @author Yancarlos diaz
  */
-public class Model {
+public class Model extends Observable{
 
     /** An rray to represent the board of the game. */
     private Node[] board;
