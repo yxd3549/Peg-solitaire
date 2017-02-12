@@ -35,29 +35,28 @@ public class Backtracker {
             return current;
         } else {
             //System.out.println("Adding child Models");
-
+            /*
+            current.takeBack();
             for (Model child : current.getSuccessors()) {
                  Model solution = solve(child);
                  if(solution != null){
                      return solution;
                  }
             }
-
-            /*
+            */
+            ///*
             Move [] childMoves = current.getValidMoves();
-            ArrayList<Model> successors = new ArrayList<Model>(childMoves.length);
-
             for(Move move: childMoves){
                 Model child = new Model(current);
                 child.setSelected(null);
                 boolean sc = child.select(move.getFrom());
                 boolean sc2 = child.move(move.getTo());
-                this.moves.add(move);
                 Model solution = solve(child);
                 if(solution != null) return solution;
-                else moves.remove(move);
+                else current.takeBack();
+                //else moves.remove(move);
             }
-            */
+            //*/
         }
         return null;
     }

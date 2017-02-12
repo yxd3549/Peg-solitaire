@@ -185,12 +185,24 @@ public class PegSolitaireGUI extends Application implements Observer {
             boolean madeMove = model.move(index);
             if(madeMove) {
                 this.repaint();
-                if(model.hasWon()) System.out.println("YOU WON!!!");
+                if(model.hasWon()){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    System.out.println("YOU WON!!!");
+                    alert.setTitle("");
+                    alert.setHeaderText("GAME OVER");
+                    alert.setContentText("YOU WIN!!!");
+
+                    alert.showAndWait();
+                }
                 //System.out.println("Moved to: " + index);
             }
             else {
-                System.out.println("Invalid Move...");
-            }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("");
+                alert.setHeaderText("ERROR");
+                alert.setContentText("Invalid Move...");
+
+                alert.showAndWait();            }
             selected = null;
         }
     }
@@ -224,9 +236,16 @@ public class PegSolitaireGUI extends Application implements Observer {
     private void buttonSolve(Button b){
         Model saveModel = this.model;
         Backtracker backtracker = new Backtracker();
+        this.model.clearMoves();
         Model modelSol = backtracker.solve(this.model);
         if(modelSol == null) {
             System.out.println("Unsolvable...");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("");
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Unsolvable...");
+
+            alert.showAndWait();
             return;
         }
         ArrayList<Move> solution = modelSol.getMoves();

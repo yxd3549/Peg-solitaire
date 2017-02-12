@@ -289,5 +289,12 @@ public class Model extends Observable{
     public void setSelected(Node newSel) {
         this.selected = newSel;
     }
+    public void takeBack(){
+        if(!this.moves.isEmpty())
+            this.moves.remove(this.moves.size()-1);
+    }
+    public void clearMoves(){
+        this.moves.clear();
+    }
 }
 
