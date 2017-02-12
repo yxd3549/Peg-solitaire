@@ -37,9 +37,12 @@ public class PegSolitaireGUI extends Application implements Observer {
     private Label label;
     private Stage stage;
     private Image imageVball = new Image(getClass().getResourceAsStream("volleyball.png"));
+    private ImageView btnImage = new ImageView(imageVball);
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         this.model = new Model();
         this.model.addObserver(this);
         this.buttons = new Button[15];
@@ -75,27 +78,38 @@ public class PegSolitaireGUI extends Application implements Observer {
         primaryStage.setResizable( false );
         primaryStage.setTitle("Peg-Solitaire Game! BrickHack 2017");
         primaryStage.show();
-
+        this.repaint();
 
     }
 
     @Override
     public void update(Observable o, Object arg){
 
-
-
+    }
+    public void repaint(){
+        Node [] tempModel = model.getBoard();
+        for(int i = 0; i < buttons.length; ++i){
+            System.out.println(i + ": " + tempModel[i].isPeg());
+            if(tempModel[i].isPeg()) {
+                ImageView temp = new ImageView(imageVball);
+                temp.setFitHeight(100);
+                temp.setFitWidth(100);
+                buttons[i].setGraphic(temp);
+                System.out.println("Set button to vball");
+            } else {
+                buttons[i].setGraphic(null);
+            }
+        }
     }
 
     private GridPane makeBoard(){
         GridPane pane = new GridPane();
         int index = 0;
+        int btnInd = 0;
         for(int i = 1; i < 6; i++){
             for(int j = 0; i != j; j++){
                 Button b = new Button();
-                ImageView btnImage = new ImageView(imageVball);
-                btnImage.setFitHeight(100);
-                btnImage.setFitWidth(100);
-                b.setGraphic(btnImage);
+
                 pane.add(b,j,i);
                 b.setPadding(new Insets(1,1,1,1));
                 b.setMinSize(50,50);
@@ -107,7 +121,7 @@ public class PegSolitaireGUI extends Application implements Observer {
                 );
                 int finalIndex = index;
                 b.setOnMouseClicked(event -> buttonEvent(b, finalIndex));
-                buttons[buttons.length-1] = b;
+                buttons[btnInd++] = b;
                 index++;
             }
         }
@@ -120,9 +134,19 @@ public class PegSolitaireGUI extends Application implements Observer {
     private void buttonEvent( Button b, int index){
         if(selected == null){
             model.select(index);
+            selected = b;
+            System.out.println(index + " Selected.");
         }
         else{
-            model.move(index);
+            boolean madeMove = model.move(index);
+            if(madeMove) {
+                System.out.println(index + " Moved to.");
+            }
+            else
+                System.out.println("Invalid Move...");
+            selected = null;
+            this.repaint();
+
         }
     }
     private void buttonRestart( Button b){

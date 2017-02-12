@@ -183,6 +183,10 @@ public class Model extends Observable{
         return result;
     }
 
+    public Node [] getBoard(){
+        return this.board;
+    }
+
 }
 
 
