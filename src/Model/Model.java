@@ -2,6 +2,7 @@ package Model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Observable;
 import Model.*;
@@ -24,8 +25,16 @@ public class Model extends Observable{
         this.board = new Node[15];
         this.selected = model.selected;
         this.points = model.points;
+        this.moves = model.moves;
         for(int i = 0; i < 15; i++){
             this.board[i] = new Node(model.board[i]);
+        }
+        for(int i = 0; i < 15; ++i){
+            int [] tempAdj = this.getAdjInds(i);
+            for(int j = 0; j<6; j++){
+                if(tempAdj[j] != -1)
+                    board[i].setAdjacentNode(j,board[tempAdj[j]]);
+            }
         }
     }
     /**
@@ -128,11 +137,13 @@ public class Model extends Observable{
 
     @Override
     public String toString(){
-        String s = "    " + board[0].toString()
-                + "\n   " + board[1].toString() + " " + board[2].toString()
-                + "\n  " + board[3].toString() + " " + board[4].toString() + " " + board[5].toString()
-                + "\n " + board[6].toString() + " " + board[7].toString() + " " + board[8].toString() + " " + board[9].toString()
-                + "\n" + board[10].toString() + " " + board[11].toString() + " " + board[12].toString() + " " + board[13].toString() + " " + board[14].toString() + "\n";
+        String s = "    " + this.board[0].toString()
+                + "\n   " + this.board[1].toString()  + " "   + this.board[2].toString()
+                + "\n  "  + this.board[3].toString()  + " "   + this.board[4].toString();
+        s       +=" "     + this.board[5].toString()  + "\n " + this.board[6].toString() + " " + this.board[7].toString()
+                + " "     + this.board[8].toString()  + " "   + this.board[9].toString()
+                + "\n"    + this.board[10].toString() + " "   + this.board[11].toString() + " " + board[12].toString()
+                + " "     + this.board[13].toString()  + " " +  this.board[14].toString() + "\n";
         return s;
     }
 
@@ -144,7 +155,7 @@ public class Model extends Observable{
             notifyObservers();
             return false;
         }
-        Node node = board[id];
+        Node node = this.board[id];
         if(!node.isPeg()){
             notifyObservers();
             return false;
@@ -160,34 +171,40 @@ public class Model extends Observable{
      *
      */
     public boolean move(int id){
-        int middleMan = selected.canMove(id);
+
+        int middleMan = this.selected.canMove(id);
         if(middleMan == -1){
             setChanged();
             notifyObservers();
             return false;
         }
         else{
-            board[selected.getIndex()].makeHole();
-            board[middleMan].makeHole();
-            board[id].makePeg();
-            Move toAdd = new Move(selected.getIndex(),id);
-            moves.add(toAdd);
-            selected = null;
+            this.board[this.selected.getIndex()].makeHole();
+            this.board[middleMan].makeHole();
+            this.board[id].makePeg();
+            Move toAdd = new Move(this.selected.getIndex(),id);
+            this.moves.add(toAdd);
+            this.selected = null;
             points++;
             //setChanged();
             //notifyObservers();
             return true;
         }
     }
+    
 
     public void remove(int id){
-        board[id].makeHole();
+        this.board[id].makeHole();
         setChanged();
         notifyObservers();
     }
 
     public boolean hasWon() {
-        return points >= 14;
+        int total = 0;
+        for(Node i: this.board){
+            total += (i.isPeg()) ? 1 : 0;
+        }
+        return total == 1;
     }
 
     public int[] getBounds(int row){
@@ -223,19 +240,20 @@ public class Model extends Observable{
     public Move [] getValidMoves(){
         ArrayList<Move> res = new ArrayList<Move>();
         for(int i = 0; i < 15; ++i){
-            if(!board[i].isPeg()) {
+            if(!this.board[i].isPeg()) {
                 int[] adjTemp = this.getAdjInds(i);
                 for (int j = 0; j < 6; ++j) {
                     int a = adjTemp[j];
-                    if (a != -1 && board[a].isPeg()){
+                    if (a != -1 && this.board[a].isPeg()){
                         int b = this.getAdjInds(a)[j];
-                        if(b != -1 && board[b].isPeg()){
+                        if(b != -1 && this.board[b].isPeg()){
                             res.add(new Move(b,i));
                         }
                     }
                 }
             }
         }
+        res = new ArrayList<Move>(new LinkedHashSet<Move>(res));
         Move [] result = res.toArray(new Move[res.size()]);
         return result;
     }
@@ -249,14 +267,21 @@ public class Model extends Observable{
         Move [] moves = this.getValidMoves();
         for(Move move: moves){
             Model child = new Model(this);
-            child.select(move.getFrom());
-            child.move(move.getTo());
+            child.selected = null;
+            boolean sc  = child.select(move.getFrom());
+            //System.out.println(child.selected.getIndex());
+            boolean sc2 =child.move(move.getTo());
+            if(!sc || !sc2){
+                System.out.println("getSuccessors(): Something went wrong... (sc " + sc +")(sc2 "+sc2 +")");
+            }
             successors.add(child);
         }
         return successors;
     }
 
-    public ArrayList<Move> getMoves(){ return moves; }
+    public ArrayList<Move> getMoves(){
+        ArrayList<Move> res = new ArrayList<Move>(new LinkedHashSet<Move>(this.moves));
+        return res; }
 }
 
 

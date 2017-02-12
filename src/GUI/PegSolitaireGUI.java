@@ -58,8 +58,9 @@ public class PegSolitaireGUI extends Application implements Observer {
         stage = primaryStage;
         BorderPane layout = new BorderPane();
         GridPane grid = makeBoard();
-        this.model.remove(Math.abs((new Random()).nextInt() % 15));
-        Button restart = new Button("restart");
+        //this.model.remove(Math.abs((new Random()).nextInt() % 15));
+        this.model.remove(14);
+        Button restart = new Button("Restart");
         restart.setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT");
         quit.setOnMouseClicked(event -> buttonQuit(quit));
@@ -159,8 +160,9 @@ public class PegSolitaireGUI extends Application implements Observer {
         }
         else{
             boolean madeMove = model.move(index);
-            this.repaint();
             if(madeMove) {
+                this.repaint();
+                if(model.hasWon()) System.out.println("YOU WON!!!");
                 //System.out.println("Moved to: " + index);
             }
             else {
@@ -177,13 +179,7 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 
-    private void buttonSolve( Button b){
-        Backtracker solver = new Backtracker();
-        Optional<Model> solution = solver.solve(model);
-        this.model = solution.get();
-        this.model.addObserver(this);
-        this.board = model.getBoard();
-    }
+
     private void buttonQuit( Button b){
         System.exit(0);
     }
@@ -203,14 +199,31 @@ public class PegSolitaireGUI extends Application implements Observer {
     }
 
     private void buttonSolve(Button b){
-        Model models = (new Backtracker()).solvewithPath(this.model);
-        if(models == null) {
+        Model saveModel = this.model;
+        Backtracker backtracker = new Backtracker();
+        Model modelSol = backtracker.solve(this.model);
+        if(modelSol == null) {
             System.out.println("Unsolvable...");
+            return;
         }
-        ArrayList<Move> solution = models.getMoves();
+        ArrayList<Move> solution = modelSol.getMoves();
+        this.model = modelSol;
+        this.model.addObserver(this);
         System.out.println("Solution: ");
         for(Move i : solution){
             System.out.println(i);
         }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Solution");
+        String msg = "";
+        for(Move i : solution){
+            msg += i.toString()+ "\n";
+        }
+        alert.setContentText(msg);
+
+        alert.showAndWait();
+        this.model = modelSol;
+
     }
 }
