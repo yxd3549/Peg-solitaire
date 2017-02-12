@@ -65,10 +65,6 @@ public class Node {
 
     public void setAdjacentNodes(Node[] newNodes){this.adjNodes = newNodes;}
 
-    public Node getAdjNode(int index) {
-        return this.adjNodes[index];
-    }
-
     public int canMove(int index) {
         if (!hasPeg){
             return -1;

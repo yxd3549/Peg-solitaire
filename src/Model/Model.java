@@ -6,10 +6,12 @@ package Model;
  */
 public class Model {
 
-    /** An rray to represent the board of the game. */
+    /** An array to represent the board of the game. */
     private Node[] board;
     /** The currently selected peg */
     private Node selected;
+    /** Player has won if this equals 14 */
+    private int hasWon;
 
     /**
      * Public constructor for the Model
@@ -17,10 +19,12 @@ public class Model {
      * It then links the Nodes that are adjacent to each other
      */
     public Model(){
+        hasWon = 0;
         this.board = new Node[15];
         for (int i = 0; i < 15; i++){
             this.board[i] = new Node(true, i);
         }
+
         // Peg 0
         board[0].setAdjacentNode(2, board[2]);
         board[0].setAdjacentNode(3, board[1]);
@@ -111,19 +115,18 @@ public class Model {
     /**
      *
      */
-    public boolean select(int id){
+    public boolean select(int id) {
+        if (id >= 15 || id < 0){
+            return false;
+        }
         Node node = board[id];
-        if (id > 15){
+        if(!node.isPeg()){
             return false;
         }
-        else if(!node.isPeg()){
-            return false;
-        }
-        else if(node.isPeg()){
+        else {
             this.selected = node;
             return true;
         }
-        return false; // Should not be reached
     }
 
     /**
@@ -139,28 +142,13 @@ public class Model {
             board[middleMan].makeHole();
             board[id].makePeg();
             selected = null;
+            hasWon++;
             return true;
         }
     }
-
 
     public void remove(int id){
         board[id].makeHole();
-    }
-
-    public boolean hasWon(){
-        int remaining = 0;
-        for(int i = 0; i < 15; i++){
-            if(board[i].isPeg()){
-                remaining++;
-            }
-        }
-        if (remaining == 1){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     public int[] getBounds(int row){
@@ -188,7 +176,6 @@ public class Model {
         result[5] = (upBnds[0] + (index-bounds[0]) - 1 >= upBnds[0]) ? upBnds[0] + (index-bounds[0]) - 1 : -1;
         return result;
     }
-
 
 }
 
