@@ -218,7 +218,7 @@ public class Model extends Observable{
     }
 
     public boolean hasLost(){
-        return this.getValidMoves().length > 0;
+        return this.getValidMoves().length == 0;
     }
 }
 

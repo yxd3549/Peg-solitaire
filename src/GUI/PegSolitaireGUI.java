@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -64,14 +65,18 @@ public class PegSolitaireGUI extends Application implements Observer {
         restart.setOnMouseClicked(event -> buttonRestart(restart));
         Button quit = new Button("RAGEQUIT");
         quit.setOnMouseClicked(event -> buttonQuit(quit));
+        Button moves = new Button("Valid Moves");
+        moves.setOnMouseClicked(event -> buttonMoves(moves));
 
         Button solve = new Button("Solve");
 
         restart.setMaxWidth(Double.MAX_VALUE);
         quit.setMaxWidth(Double.MAX_VALUE);
         solve.setMaxWidth(Double.MAX_VALUE);
+        solve.setMaxWidth(Double.MAX_VALUE);
 
-        VBox clickables = new VBox(restart, quit, solve);
+
+        VBox clickables = new VBox(restart, quit, solve,moves);
         clickables.setPadding(new Insets(20,10,20,10));
         clickables.setSpacing(10);
         VBox box = new VBox(label, grid);
@@ -88,10 +93,16 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg){
+        this.repaint();
         if(model.hasLost()){
             label.setText("You are stuck");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("LOSER");
+            alert.setHeaderText(null);
+            alert.setContentText("No more moves left! Try again...");
+
+            alert.showAndWait();
         }
-        repaint();
     }
     public void repaint(){
         for(int i = 0; i < buttons.length; ++i){
@@ -140,19 +151,15 @@ public class PegSolitaireGUI extends Application implements Observer {
         if(selected == null){
             model.select(index);
             selected = b;
-            System.out.println(index + " Selected.");
-            System.out.print("You can move to ");
-            for(Move i: this.model.getValidMoves()) {
-                System.out.println(i);
-            }
+            System.out.println("Selected: " + index);
         }
         else{
             boolean madeMove = model.move(index);
             if(madeMove) {
-                System.out.println(index + " Moved to.");
+                System.out.println("Moved to: " + index);
             }
             else
-                System.out.println("Can't Move to " + index + "...");
+                System.out.println("Invalid Move...");
             selected = null;
         }
     }
@@ -165,6 +172,15 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     private void buttonQuit( Button b){
         System.exit(0);
+    }
+
+    private void buttonMoves(Button b){
+        System.out.println("\n\n-----Valid Moves-----");
+        for(Move i: this.model.getValidMoves()) {
+            System.out.println(i);
+        }
+        System.out.println("---------------------");
+
     }
 }
 
