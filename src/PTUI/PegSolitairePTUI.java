@@ -1,7 +1,9 @@
 package PTUI;
 
+import Backtracking.Backtracker;
 import Model.Model;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -45,7 +47,9 @@ public class PegSolitairePTUI {
                 continue;
             }
             else if(choice.startsWith("S") || choice.startsWith("s")){
-                continue;
+                Backtracker solver = new Backtracker();
+                Optional<Model> solution = solver.solve(controller.model);
+                controller.model = solution.get();
             }
             else if(choice.startsWith("R") || choice.startsWith("r")){
                 controller.model = new Model();

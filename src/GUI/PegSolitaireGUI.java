@@ -1,5 +1,6 @@
 package GUI;
 
+import Backtracking.Backtracker;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -69,6 +70,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         moves.setOnMouseClicked(event -> buttonMoves(moves));
 
         Button solve = new Button("Solve");
+        solve.setOnMouseClicked(event -> buttonSolve(solve));
 
         restart.setMaxWidth(Double.MAX_VALUE);
         quit.setMaxWidth(Double.MAX_VALUE);
@@ -177,6 +179,13 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 
+    private void buttonSolve( Button b){
+        Backtracker solver = new Backtracker();
+        Optional<Model> solution = solver.solve(model);
+        this.model = solution.get();
+        this.model.addObserver(this);
+        this.board = model.getBoard();
+    }
     private void buttonQuit( Button b){
         System.exit(0);
     }
