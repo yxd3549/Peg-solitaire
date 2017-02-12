@@ -177,6 +177,13 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 
+    private void buttonSolve( Button b){
+        Backtracker solver = new Backtracker();
+        Optional<Model> solution = solver.solve(model);
+        this.model = solution.get();
+        this.model.addObserver(this);
+        this.board = model.getBoard();
+    }
     private void buttonQuit( Button b){
         System.exit(0);
     }

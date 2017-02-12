@@ -2,6 +2,7 @@ package Model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import Model.*;
 /**
@@ -18,6 +19,15 @@ public class Model extends Observable{
     private int points;
     private ArrayList<Move> moves = new ArrayList<Move>();
 
+
+    public Model(Model model){
+        this.board = new Node[15];
+        this.selected = model.selected;
+        this.points = model.points;
+        for(int i = 0; i < 15; i++){
+            this.board[i] = new Node(model.board[i]);
+        }
+    }
     /**
      * Public constructor for the Model
      * The constructor initializes the board and fills it with Pegs (Nodes with a value of 1)
@@ -232,6 +242,18 @@ public class Model extends Observable{
 
     public boolean hasLost(){
         return this.getValidMoves().length == 0;
+    }
+
+    public List<Model> getSuccessors(){
+        ArrayList<Model> successors = new ArrayList<Model>();
+        Move [] moves = this.getValidMoves();
+        for(Move move: moves){
+            Model child = new Model(this);
+            child.select(move.getFrom());
+            child.move(move.getTo());
+            successors.add(child);
+        }
+        return successors;
     }
 
     public ArrayList<Move> getMoves(){ return moves; }

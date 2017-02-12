@@ -22,10 +22,20 @@ public class Node {
     private boolean hasPeg;
 
     /**
-     * Public Constructor
+     * Public Copy constructor
      */
-    public Node() {
-        this.hasPeg = false;
+    public Node(Node n) {
+        this.index = n.index;
+        this.adjNodes = new Node[6];
+        for(int i = 0; i < 6; i++){
+            if(n.adjNodes[i] == null){
+                this.adjNodes[i] = null;
+            }
+            else {
+                this.adjNodes[i] = new Node(n.adjNodes[i].isPeg(), n.adjNodes[i].index);
+            }
+        }
+        this.hasPeg = n.hasPeg;
     }
 
     /**
