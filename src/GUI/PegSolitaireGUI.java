@@ -107,6 +107,7 @@ public class PegSolitaireGUI extends Application implements Observer {
             label.setText("Peg-Solitaire");
         }
         repaint();
+
     }
     public void repaint(){
         for(int i = 0; i < buttons.length; ++i){
