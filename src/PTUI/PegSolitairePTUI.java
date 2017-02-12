@@ -47,7 +47,7 @@ public class PegSolitairePTUI {
             else if(choice.startsWith("S") || choice.startsWith("s")){
                 continue;
             }
-            else if(choice.startsWith("Re") || choice.startsWith("re")){
+            else if(choice.startsWith("R") || choice.startsWith("r")){
                 controller.model = new Model();
             }
             else if(choice.startsWith("RA") || choice.startsWith("ra") || choice.startsWith("Ra")){

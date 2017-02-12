@@ -1,5 +1,6 @@
-# Model.Peg-solitaire
-Textual and visual representation of the triangular peg-solitaire
+# Peg-Solitare
+
+The real reason you would ever go to Cracker Barrel (not really...)
 
 | Name | College | Year | E-Mail |
 |------|---------|------|--------|
