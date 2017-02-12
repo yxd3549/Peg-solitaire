@@ -48,8 +48,8 @@ public class PegSolitairePTUI {
             }
             else if(choice.startsWith("S") || choice.startsWith("s")){
                 Backtracker solver = new Backtracker();
-                Optional<Model> solution = solver.solve(controller.model);
-                controller.model = solution.get();
+                //Optional<Model> solution = solver.solve(controller.model);
+                //controller.model = solution.get();
             }
             else if(choice.startsWith("R") || choice.startsWith("r")){
                 controller.model = new Model();

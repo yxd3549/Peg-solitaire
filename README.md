@@ -9,3 +9,4 @@ The real reason you would ever go to Cracker Barrel (not really...)
 | Michelle Zhou | Cornell University | Sophomore | myz6@cornell.edu |
 | Luke Shadler | Rochester Institute of Technology | Senior | lxs2208@rit.edu |
 
+[Link to the full project on GitHub](https://github.com/yxd3549/Peg-solitaire)
