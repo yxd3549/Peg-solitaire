@@ -157,6 +157,9 @@ public class PegSolitaireGUI extends Application implements Observer {
         }
     }
     private void buttonRestart( Button b){
+        this.model = new Model();
+        this.model.addObserver(this);
+        this.board = model.getBoard();
         this.model.remove(Math.abs((new Random()).nextInt() % 15));
     }
 

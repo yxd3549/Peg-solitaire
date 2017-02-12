@@ -199,7 +199,7 @@ public class Model extends Observable{
     public boolean hasLost(){
         for(int i = 0; i < 15; i++){
             for(int j = 0; j < 6; j++){
-                if(board[i].canMove(j) != -1){
+                if(board[i].isPeg() && board[i].canMove(j) != -1){
                     return false;
                 }
             }
