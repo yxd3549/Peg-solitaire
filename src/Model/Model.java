@@ -1,11 +1,9 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Observable;
-import Model.*;
 /**
  * Model.Model.java is used to represent the game and perform every internal operation.
  * @author Yancarlos diaz
@@ -21,6 +19,10 @@ public class Model extends Observable{
     private ArrayList<Move> moves = new ArrayList<Move>();
 
 
+    /**
+     * Constructor for copying the model from a previous Object
+     * @param model Model object to copy
+     */
     public Model(Model model){
         this.board = new Node[15];
         this.selected = model.selected;
@@ -56,85 +58,13 @@ public class Model extends Observable{
                     board[i].setAdjacentNode(j,board[tempAdj[j]]);
             }
         }
-        /*
-        // Peg 0
-        board[0].setAdjacentNode(2, board[2]);
-        board[0].setAdjacentNode(3, board[1]);
-        // Peg 1
-        board[1].setAdjacentNode(0, board[0]);
-        board[1].setAdjacentNode(1, board[2]);
-        board[1].setAdjacentNode(3, board[3]);
-        board[1].setAdjacentNode(2, board[4]);
-        // Peg 2
-        board[2].setAdjacentNode(5, board[0]);
-        board[2].setAdjacentNode(4, board[1]);
-        board[2].setAdjacentNode(3, board[4]);
-        board[2].setAdjacentNode(2, board[5]);
-        // Peg 3
-        board[3].setAdjacentNode(0, board[1]);
-        board[3].setAdjacentNode(1, board[4]);
-        board[3].setAdjacentNode(2, board[7]);
-        board[3].setAdjacentNode(3, board[6]);
-        // Peg 4
-        board[4].setAdjacentNode(0, board[2]);
-        board[4].setAdjacentNode(1, board[5]);
-        board[4].setAdjacentNode(2, board[8]);
-        board[4].setAdjacentNode(3, board[7]);
-        board[4].setAdjacentNode(4, board[3]);
-        board[4].setAdjacentNode(5, board[1]);
-        // Peg 5
-        board[5].setAdjacentNode(2, board[9]);
-        board[5].setAdjacentNode(3, board[8]);
-        board[5].setAdjacentNode(4, board[4]);
-        board[5].setAdjacentNode(5, board[2]);
-        // Peg 6
-        board[6].setAdjacentNode(0, board[3]);
-        board[6].setAdjacentNode(1, board[7]);
-        board[6].setAdjacentNode(2, board[11]);
-        board[6].setAdjacentNode(3, board[10]);
-        // Peg 7
-        board[7].setAdjacentNode(0, board[4]);
-        board[7].setAdjacentNode(1, board[8]);
-        board[7].setAdjacentNode(2, board[12]);
-        board[7].setAdjacentNode(3, board[11]);
-        board[7].setAdjacentNode(4, board[6]);
-        board[7].setAdjacentNode(5, board[3]);
-        // Peg 8
-        board[8].setAdjacentNode(0, board[3]);
-        board[8].setAdjacentNode(1, board[9]);
-        board[8].setAdjacentNode(2, board[13]);
-        board[8].setAdjacentNode(3, board[12]);
-        board[8].setAdjacentNode(4, board[7]);
-        board[8].setAdjacentNode(5, board[4]);
-        // Peg 9
-        board[9].setAdjacentNode(2, board[14]);
-        board[9].setAdjacentNode(3, board[13]);
-        board[9].setAdjacentNode(4, board[8]);
-        board[9].setAdjacentNode(5, board[5]);
-        // Peg 10
-        board[10].setAdjacentNode(0, board[6]);
-        board[10].setAdjacentNode(1, board[11]);
-        // Peg 11
-        board[11].setAdjacentNode(0, board[7]);
-        board[11].setAdjacentNode(1, board[12]);
-        board[11].setAdjacentNode(4, board[10]);
-        board[11].setAdjacentNode(5, board[6]);
-        // Peg 12
-        board[12].setAdjacentNode(0, board[8]);
-        board[12].setAdjacentNode(1, board[13]);
-        board[12].setAdjacentNode(4, board[11]);
-        board[12].setAdjacentNode(5, board[7]);
-        // Peg 13
-        board[13].setAdjacentNode(0, board[9]);
-        board[13].setAdjacentNode(1, board[14]);
-        board[13].setAdjacentNode(4, board[12]);
-        board[13].setAdjacentNode(5, board[8]);
-        // Peg 14
-        board[14].setAdjacentNode(4, board[13]);
-        board[14].setAdjacentNode(5, board[9]);
-*/
+
     }
 
+    /**
+     * Plain text toString override
+     * @return plain text representation of current board state
+     */
     @Override
     public String toString(){
         String s = "    " + this.board[0].toString()
@@ -148,7 +78,9 @@ public class Model extends Observable{
     }
 
     /**
-     *
+     * Tests for ability to select starting index
+     * @param id index to test
+     * @return true if selection is valid
      */
     public boolean select(int id) {
         if (id >= 15 || id < 0){
@@ -168,7 +100,9 @@ public class Model extends Observable{
     }
 
     /**
-     *
+     * Tests for moving to destination index and then moves
+     * @param id index of destination
+     * @return true if move was performed
      */
     public boolean move(int id){
         int middleMan = this.selected.canMove(id);
@@ -190,13 +124,20 @@ public class Model extends Observable{
         }
     }
 
-
+    /**
+     * Creates a hole at given index and notifies GUI
+     * @param id index to create hole
+     */
     public void remove(int id) {
         this.board[id].makeHole();
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Tests for win condition
+     * @return true if the player has won
+     */
     public boolean hasWon() {
         int total = 0;
         for(Node i: this.board){
@@ -205,6 +146,11 @@ public class Model extends Observable{
         return total == 1;
     }
 
+    /**
+     * Get lower and upper bounds of given row
+     * @param row row
+     * @return lower and upper bounds in int[2]
+     */
     public int[] getBounds(int row) {
         int[] result = new int[2];
         result[0] = (row) * (row + 1) / 2;
@@ -212,10 +158,21 @@ public class Model extends Observable{
         return result;
     }
 
+    /**
+     * Return row index
+     * @param index node index
+     * @return row index
+     */
     public int getRow(int index) {
         return (int) (0.5 * Math.sqrt(1.0 + 8.0 * index) - 0.5);
     }
 
+
+    /**
+     * gets the adjacent indices of given node index
+     * @param index node index
+     * @return size 6 array containing neighboring indices
+     */
     public int[] getAdjInds(int index) {
         int row = this.getRow(index);
         int[] bounds = this.getBounds(row);
@@ -231,10 +188,19 @@ public class Model extends Observable{
         return result;
     }
 
+
+    /**
+     * getter for node index board array
+     * @return board
+     */
     public Node[] getBoard() {
         return this.board;
     }
 
+    /**
+     * gets all currently valid moves
+     * @return valid moves
+     */
     public Move [] getValidMoves(){
         ArrayList<Move> res = new ArrayList<Move>();
         for(int i = 0; i < 15; ++i){
@@ -256,10 +222,18 @@ public class Model extends Observable{
         return result;
     }
 
+    /**
+     * Tests for losing condition
+     * @return true if the player has lost
+     */
     public boolean hasLost(){
         return this.getValidMoves().length == 0;
     }
 
+    /**
+     * gets models of next valid moves
+     * @return model list
+     */
     public List<Model> getSuccessors() {
         Move[] moves = this.getValidMoves();
         ArrayList<Model> successors = new ArrayList<Model>(moves.length);
@@ -277,22 +251,42 @@ public class Model extends Observable{
         return successors;
     }
 
+    /**
+     * returns unique moves
+     * @return moves
+     */
     public ArrayList<Move> getMoves() {
         ArrayList<Move> res = new ArrayList<Move>(new LinkedHashSet<Move>(this.moves));
         return res;
     }
 
-
+    /**
+     * getter for selected node
+     * @return selected node
+     */
     public Node getSelected() {
         return this.selected;
     }
+
+    /**
+     * setter for selected node
+     * @param newSel node to set selected to
+     */
     public void setSelected(Node newSel) {
         this.selected = newSel;
     }
+
+    /**
+     * remove most recent added move to current model
+     */
     public void takeBack(){
         if(!this.moves.isEmpty())
             this.moves.remove(this.moves.size()-1);
     }
+
+    /**
+     * clears move list
+     */
     public void clearMoves(){
         this.moves.clear();
     }
