@@ -9,7 +9,7 @@ import java.util.Optional;
 
 /**
  * The Backtracker is used to solve the game.
- * @author Yancarlos Diaz
+ * @author Lucas Shadler
  */
 public class Backtracker {
     private ArrayList<Model> models;
@@ -23,7 +23,7 @@ public class Backtracker {
 
 
     /**
-     * solve finds a solution via backtracking!
+     * Solve finds a solution via backtracking!
      * @param current
      * @return
      */
@@ -62,20 +62,5 @@ public class Backtracker {
     }
 
 
-    public List<Model> getSuccessors(Model model) {
-        Move[] moves = model.getValidMoves();
-        ArrayList<Model> successors = new ArrayList<Model>(moves.length);
-        for (Move move : moves) {
-            Model child = new Model(model);
-            child.setSelected(null);
-            boolean sc = child.select(move.getFrom());
-            //System.out.println(child.selected.getIndex());
-            boolean sc2 = child.move(move.getTo());
-            if (!sc || !sc2) {
-                System.out.println("getSuccessors(): Something went wrong... (sc " + sc + ")(sc2 " + sc2 + ")");
-            }
-            successors.add(child);
-        }
-        return successors;
-    }
+
 }
