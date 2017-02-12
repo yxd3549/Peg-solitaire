@@ -120,14 +120,17 @@ public class Model extends Observable{
      */
     public boolean select(int id) {
         if (id >= 15 || id < 0){
+            notifyObservers();
             return false;
         }
         Node node = board[id];
         if(!node.isPeg()){
+            notifyObservers();
             return false;
         }
         else {
             this.selected = node;
+            notifyObservers();
             return true;
         }
     }
@@ -138,6 +141,8 @@ public class Model extends Observable{
     public boolean move(int id){
         int middleMan = selected.canMove(id);
         if(middleMan == -1){
+            setChanged();
+            notifyObservers();
             return false;
         }
         else{
@@ -146,12 +151,16 @@ public class Model extends Observable{
             board[id].makePeg();
             selected = null;
             points++;
+            setChanged();
+            notifyObservers();
             return true;
         }
     }
 
     public void remove(int id){
         board[id].makeHole();
+        setChanged();
+        notifyObservers();
     }
 
     public boolean hasWon() {
@@ -208,6 +217,9 @@ public class Model extends Observable{
         return result;
     }
 
+    public boolean hasLost(){
+        return this.getValidMoves().length > 0;
+    }
 }
 
 

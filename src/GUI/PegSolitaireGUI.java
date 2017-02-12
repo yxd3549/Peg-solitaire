@@ -39,6 +39,7 @@ public class PegSolitaireGUI extends Application implements Observer {
     private Label label;
     private Stage stage;
     private Image imageVball = new Image(getClass().getResourceAsStream("volleyball.png"));
+    private Node[] board;
     private ImageView btnImage = new ImageView(imageVball);
 
 
@@ -47,6 +48,7 @@ public class PegSolitaireGUI extends Application implements Observer {
 
         this.model = new Model();
         this.model.addObserver(this);
+        this.board = model.getBoard();
         this.buttons = new Button[15];
         //Making the Label
         this.label = new Label("Peg-Solitaire");
@@ -81,18 +83,19 @@ public class PegSolitaireGUI extends Application implements Observer {
         primaryStage.setResizable( false );
         primaryStage.setTitle("Peg-Solitaire Game! BrickHack 2017");
         primaryStage.show();
-        this.repaint();
 
     }
 
     @Override
     public void update(Observable o, Object arg){
-
+        if(model.hasLost()){
+            label.setText("You are stuck");
+        }
+        repaint();
     }
     public void repaint(){
-        Node [] tempModel = model.getBoard();
         for(int i = 0; i < buttons.length; ++i){
-            if(tempModel[i].isPeg()) {
+            if(board[i].isPeg()) {
                 ImageView temp = new ImageView(imageVball);
                 temp.setFitHeight(100);
                 temp.setFitWidth(100);
@@ -126,6 +129,7 @@ public class PegSolitaireGUI extends Application implements Observer {
                 index++;
             }
         }
+        repaint();
         return pane;
     }
     public static void main( String[] args){
@@ -150,14 +154,13 @@ public class PegSolitaireGUI extends Application implements Observer {
             else
                 System.out.println("Can't Move to " + index + "...");
             selected = null;
-            this.repaint();
-
         }
     }
     private void buttonRestart( Button b){
-        model = new Model();
+        this.model = new Model();
+        this.model.addObserver(this);
+        this.board = model.getBoard();
         this.model.remove(Math.abs((new Random()).nextInt() % 15));
-        this.repaint();
     }
 
     private void buttonQuit( Button b){
