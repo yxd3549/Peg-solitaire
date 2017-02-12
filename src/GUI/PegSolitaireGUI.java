@@ -195,6 +195,3 @@ public class PegSolitaireGUI extends Application implements Observer {
 
     }
 }
-
-
-// This comment is here because Yan doesnt understand version control
