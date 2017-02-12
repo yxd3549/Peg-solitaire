@@ -57,6 +57,7 @@ public class PegSolitaireGUI extends Application implements Observer {
         quit.setOnMouseClicked(event -> buttonQuit(quit));
 
         Button solve = new Button("Solve");
+
         restart.setMaxWidth(Double.MAX_VALUE);
         quit.setMaxWidth(Double.MAX_VALUE);
         solve.setMaxWidth(Double.MAX_VALUE);
