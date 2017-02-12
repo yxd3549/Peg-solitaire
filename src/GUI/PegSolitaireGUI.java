@@ -209,6 +209,9 @@ public class PegSolitaireGUI extends Application implements Observer {
             //System.out.println("Selected: " + index);
         }
         else{
+            if(index == model.getSelected().getIndex()){
+                return;
+            }
             boolean madeMove = model.move(index);
             if(madeMove) {
                 this.repaint();
@@ -221,16 +224,24 @@ public class PegSolitaireGUI extends Application implements Observer {
 
                     alert.showAndWait();
                 }
+                selected = null;
+
                 //System.out.println("Moved to: " + index);
             }
             else {
+                model.select(index);
+                selected = b;
+                /*
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("");
                 alert.setHeaderText("ERROR");
                 alert.setContentText("Invalid Move...");
 
-                alert.showAndWait();            }
-            selected = null;
+                alert.showAndWait();
+                */
+            }
+
+
         }
     }
 
