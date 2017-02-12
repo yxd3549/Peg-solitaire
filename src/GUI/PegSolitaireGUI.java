@@ -156,15 +156,15 @@ public class PegSolitaireGUI extends Application implements Observer {
         if(selected == null){
             model.select(index);
             selected = b;
-            System.out.println("Selected: " + index);
+            //System.out.println("Selected: " + index);
         }
         else{
             boolean madeMove = model.move(index);
             if(madeMove) {
-                System.out.println("Moved to: " + index);
+                //System.out.println("Moved to: " + index);
             }
             else
-                System.out.println("Invalid Move...");
+                //System.out.println("Invalid Move...");
             selected = null;
         }
     }
@@ -181,11 +181,16 @@ public class PegSolitaireGUI extends Application implements Observer {
     }
 
     private void buttonMoves(Button b){
-        System.out.println("\n\n-----Valid Moves-----");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("Valid Moves");
+        String msg = "";
         for(Move i: this.model.getValidMoves()) {
-            System.out.println(i);
+            msg += i.toString() + "\n";
         }
-        System.out.println("---------------------");
+        alert.setContentText(msg);
+
+        alert.showAndWait();
 
     }
 }
