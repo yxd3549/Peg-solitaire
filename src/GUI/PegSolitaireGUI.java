@@ -36,6 +36,7 @@ public class PegSolitaireGUI extends Application implements Observer {
     private Button[] buttons;
     private Label label;
     private Stage stage;
+    private Image imageVball = new Image(getClass().getResourceAsStream("volleyball.png"));
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -91,6 +92,10 @@ public class PegSolitaireGUI extends Application implements Observer {
         for(int i = 1; i < 6; i++){
             for(int j = 0; i != j; j++){
                 Button b = new Button();
+                ImageView btnImage = new ImageView(imageVball);
+                btnImage.setFitHeight(100);
+                btnImage.setFitWidth(100);
+                b.setGraphic(btnImage);
                 pane.add(b,j,i);
                 b.setPadding(new Insets(1,1,1,1));
                 b.setMinSize(50,50);
